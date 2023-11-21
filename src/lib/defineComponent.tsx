@@ -10,11 +10,15 @@ class ReactComponent extends React.Component<any, any>{
     super(props);
     this.state = {};
     this.domRef = this.domRef.bind(this);
+
+
   }
 
   ready(){}
   destroy(){}
-  update(){}
+  update(preProp:any,preState:any){}
+  watchProp(){return {}}
+  watchState(){return {}}
 
   componentDidMount(){
     this.ready();
@@ -24,13 +28,38 @@ class ReactComponent extends React.Component<any, any>{
     this.destroy();
   }
 
-  componentDidUpdate(){
-    this.update();
+
+  // shouldComponentUpdate(nextProps: Readonly<any>, nextState: Readonly<any>, nextContext: any): boolean {
+  //   console.log(nextProps,nextState,nextContext)
+  //   return true;
+  // }
+
+
+  componentDidUpdate(prop:any,state:any){
+    //检查prop是否有变化
+    const watchProp:any = this.watchProp();
+    for(let [key,val] of Object.entries(watchProp)){
+      if(prop[key] !== this.props[key] && typeof val === 'function'){
+        (val as any)(this.props[key],prop[key])
+      }
+    }
+
+    //检查state是否有变化
+    const watchState:any = this.watchState();
+    for(let [key,val] of Object.entries(watchState)){
+      if(state[key] !== this.state[key] && typeof val === 'function'){
+        (val as any)(this.state[key],state[key])
+      }
+    }
+
+    return null;
   }
 
   domRef(e:any,key:string){
     (this as any)[key] = e;
   }
+
+
 
 }
 

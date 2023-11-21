@@ -1,16 +1,24 @@
-// import React, { useState } from 'react'
-// import './App.css'
-import React from "react";
+import React, { useState } from 'react'
+import './App.css'
 import Test from "./components/test.tsx";
 
 export default class App extends React.Component<any, any>{
   constructor(props:any) {
     super(props);
+    this.state = {};
+
   }
 
   render(){
-    return <Test/>
+    return <Test a={this.state.a}/>
   }
+
+  componentDidMount(){
+    setInterval(()=>{
+      this.setState({a:new Date().getTime()})
+    },5000)
+  }
+
 }
 
 

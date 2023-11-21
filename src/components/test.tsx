@@ -8,7 +8,8 @@ class Test extends ReactComponent{
     super(props);
 
     this.state = {
-      a:'123123'
+      a:'123123',
+      d:''
     }
   }
 
@@ -16,9 +17,35 @@ class Test extends ReactComponent{
     a:'123123'
   }
 
+
+  watchProp(){
+    return {
+      a:(newVal:any,oldVal:any)=>{
+        this.setState({a:newVal})
+      }
+    }
+  }
+
+  watchState(){
+    return {
+      a:(newVal:any,oldVal:any) => {
+        this.setState({d:newVal})
+      }
+    }
+  }
+
+
+  test(){
+    console.log(123)
+  }
+
   ready(){
     console.log(this.elementRef)
     console.log(this.temp1Ref)
+  }
+
+  destroy(){
+    console.log('d')
   }
 
   clickFn(){
@@ -27,9 +54,13 @@ class Test extends ReactComponent{
 
 
   render(){
+    console.log('r:'+new Date().getTime())
     return <>
-      <div ref={(e)=>this.domRef(e,'elementRef')} onClick={()=>this.clickFn()}>{this.props.a}={this.state.a}</div>
-      <div ref={(e)=>this.domRef(e,'temp1Ref')}>222</div>
+      <div
+        ref={(e)=>this.domRef(e,'elementRef')}
+        onClick={()=>this.clickFn()}
+      >{this.state.a}</div>
+      <div ref={(e)=>this.domRef(e,'temp1Ref')}>{this.state.d}</div>
     </>
   }
 }
