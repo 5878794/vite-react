@@ -1,6 +1,7 @@
 // import React, { useState } from 'react'
 // import './App.css'
 import React from "react";
+import Test from "./components/test.tsx";
 
 export default class App extends React.Component<any, any>{
   constructor(props:any) {
@@ -8,7 +9,7 @@ export default class App extends React.Component<any, any>{
   }
 
   render(){
-    return <div>1233</div>
+    return <Test/>
   }
 }
 
