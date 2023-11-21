@@ -9,7 +9,6 @@ class ReactComponent extends React.Component<any, any>{
   constructor(props:any) {
     super(props);
     this.state = {};
-    this.domRef = this.domRef.bind(this);
 
 
   }
@@ -36,6 +35,8 @@ class ReactComponent extends React.Component<any, any>{
 
 
   componentDidUpdate(prop:any,state:any){
+    this.update(prop,state);
+
     //检查prop是否有变化
     const watchProp:any = this.watchProp();
     for(let [key,val] of Object.entries(watchProp)){
@@ -53,10 +54,6 @@ class ReactComponent extends React.Component<any, any>{
     }
 
     return null;
-  }
-
-  domRef(e:any,key:string){
-    (this as any)[key] = e;
   }
 
 

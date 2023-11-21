@@ -18,6 +18,7 @@ class Test extends ReactComponent{
   }
 
 
+  //会触发多次运行render函数
   watchProp(){
     return {
       a:(newVal:any,oldVal:any)=>{
@@ -57,10 +58,10 @@ class Test extends ReactComponent{
     console.log('r:'+new Date().getTime())
     return <>
       <div
-        ref={(e)=>this.domRef(e,'elementRef')}
+        ref={e=>this.elementRef =e}
         onClick={()=>this.clickFn()}
       >{this.state.a}</div>
-      <div ref={(e)=>this.domRef(e,'temp1Ref')}>{this.state.d}</div>
+      <div ref={e=>this.temp1Ref=e}>{this.state.d}</div>
     </>
   }
 }
