@@ -69,4 +69,8 @@
       <textMaps />
     </LinkMapSettings>
   </component>
+  <component name="WebPackConfiguration">
+    <option name="mode" value="MANUAL" />
+    <option name="path" value="$PROJECT_DIR$/../vite-vue3/vite.config.ts" />
+  </component>
 </project>

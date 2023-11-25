@@ -69,3 +69,5 @@ export  {
   ReactComponent,
   defineComponent
 };
+
+export default ReactComponent;
