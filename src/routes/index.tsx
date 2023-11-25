@@ -11,6 +11,8 @@ const index = createBrowserRouter([
         path:'*',
         element:<div>404</div>
     }
-]);
+],{
+    basename:import.meta.env.VITE_BASE_URL
+});
 
 export default index;
