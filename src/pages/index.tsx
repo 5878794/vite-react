@@ -1,43 +1,65 @@
-
-import {ReactComponent} from "@/lib/defineComponent.tsx";
-import {Outlet} from "react-router-dom";
+//@ts-nocheck
+import {ReactComponent,Provide,Inject} from "@/lib/defineComponent.tsx";
 import css from '@/components/css.module.scss'
-import Test1 from "@/components/test1.tsx";
-import {createContext,useState} from "react";
-const MyContext = createContext(10);
 
+class Test1 extends ReactComponent{
+
+    constructor(props:any) {
+        super(props);
+    }
+
+
+    @Inject('aaa')
+    @Inject('bbb')
+    render(aaa:any,bbb:any){
+        return <div>
+            {aaa}-{bbb}
+        </div>
+    }
+}
 
 
 class Page extends ReactComponent{
-    static contextType = MyContext;
     test:any;
-    test1:any = this.reactive({});
+    test1:any;
     constructor(props:any) {
         super(props);
+        this.state = {
+            provide:'abv'
+        }
         this.test = this.ref(123);
+        this.test1 = this.reactive({});
     }
 
     ready(){
         setInterval(()=>{
             this.test1.aaa = new Date().getTime() + 'aaa'
-            this.test.value = new Date().getTime()
+            this.test.value = new Date().getTime();
+            this.setState({
+                provide:new Date().getTime(),
+                abc:'abc'+new Date().getTime()
+            })
         },1000)
     }
 
+    @Provide('aaa','provide')
+    @Provide('bbb','abc')
     render(){
         return <div className={`${css.bg} box_hlt`}>
-            <div className='box_slt' style={{width:'300px'}}>
-                <br/><br/><br/><br/><br/>
-                {this.test.value}
-                {this.test1.aaa}
-                <img src={`${import.meta.env.VITE_BASE_URL}/vite.svg`} />
+                <div className='box_slt' style={{width:'300px'}}>
+                    <br/><br/><br/><br/><br/>
+                    {this.test.value}
+                    {this.test1.aaa}
+                    <img src={`${import.meta.env.VITE_BASE_URL}/vite.svg`} />
+                </div>
+                <div className='boxflex1'>
+                    <Test1/>
+                </div>
             </div>
-            <div className='boxflex1'>
-                {/*<Test1/>*/}
-            </div>
-        </div>
     }
 }
+
+
 
 
 export default Page;
