@@ -1,19 +1,15 @@
-import {defineComponent,ReactComponent} from "../lib/defineComponent.tsx";
-import { Outlet } from "react-router-dom";
-import {createContext,useContext} from "react";
-const tt = createContext(1);
+import {defineComponent,ReactComponent,Inject} from "../lib/defineComponent.tsx";
+
 
 class Test2 extends ReactComponent{
-    static contextType = tt;
     constructor(props:any) {
         super(props);
     }
 
-    render(){
-        const val = this.context;
+    @Inject('aaa')
+    render(aaa:any){
         return <>
-            <div></div>
-            <div>test2</div>
+            <div>{aaa}</div>
         </>
     }
 }

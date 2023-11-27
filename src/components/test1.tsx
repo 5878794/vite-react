@@ -1,16 +1,26 @@
-import {defineComponent,ReactComponent,Inject} from "../lib/defineComponent.tsx";
+import {defineComponent,ReactComponent,Provide} from "../lib/defineComponent.tsx";
 import { Outlet } from "react-router-dom";
 import Test2 from "@/components/test2.tsx";
 
 class Test extends ReactComponent{
-    // static contextType:any = Inject('aaa');
     constructor(props:any) {
         super(props);
+        this.state = {
+            aaa:props.aaa
+        }
+        setInterval(()=>{
+            this.setState({
+                aaa:props.aaa+'_'+new Date().getTime()
+            })
+        },1000)
     }
 
+    static defaultProps = {
+        aaa:123
+    }
 
+    @Provide('aaa','aaa')
     render(){
-        console.log('test1')
         return <>
             <div>test1</div>
             <Test2/>

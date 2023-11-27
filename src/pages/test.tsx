@@ -1,5 +1,5 @@
 import {defineComponent,ReactComponent} from "../lib/defineComponent.tsx";
-import { Outlet } from "react-router-dom";
+import Test1 from "@/components/test1.tsx";
 
 class Test extends ReactComponent{
   constructor(props:any) {
@@ -9,7 +9,8 @@ class Test extends ReactComponent{
   render(){
     return <>
       <div>test</div>
-      <Outlet/>
+      <Test1 aaa='a1'/>
+      <Test1 aaa='a2'/>
     </>
   }
 }
