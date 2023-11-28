@@ -1,4 +1,4 @@
-import {defineComponent,ReactComponent} from "../lib/defineComponent.tsx";
+import {defineComponent,ReactComponent} from "../lib/defineComponent";
 import Test1 from "@/components/test1.tsx";
 
 class Test extends ReactComponent{

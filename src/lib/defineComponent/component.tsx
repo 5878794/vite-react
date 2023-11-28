@@ -1,42 +1,7 @@
+
 //输出vue，react通用的接口
 
-import React, {createContext,ReactNode} from "react";
-
-const MyProvideData:any = {}
-
-const Provide = (nameSpace: string,provideKey:string) => {
-    return (target: any, name: string, descriptor: any) => {
-        const fn = descriptor.value;
-        descriptor.value = function (...rest: any) {
-            const data = fn.call(this, ...rest);
-            if(!MyProvideData[nameSpace]){
-                MyProvideData[nameSpace] = createContext(null);
-            }
-            const Context = MyProvideData[nameSpace];
-            return <Context.Provider value={this.state[provideKey]}>
-                {data}
-            </Context.Provider>;
-        }
-    }
-}
-const Inject:any = (nameSpace:string) => {
-    if(!MyProvideData[nameSpace]){
-        MyProvideData[nameSpace] = createContext(null);
-    }
-
-    return (target: any, name: string, descriptor: any) => {
-        const fn = descriptor.value;
-        descriptor.value = function (...rest:any) {
-            const Context = MyProvideData[nameSpace];
-            return <Context.Consumer>
-                {(prop:any)=>{
-                    return fn.call(this, ...rest,prop);
-                }}
-            </Context.Consumer>
-        }
-    }
-}
-
+import React, {createContext} from "react";
 
 class ReactComponent extends React.Component<any, any> {
 
@@ -149,8 +114,5 @@ const defineComponent = (com: any) => {
 export {
     ReactComponent,
     defineComponent,
-    Provide,
-    Inject
 };
 
-export default ReactComponent;

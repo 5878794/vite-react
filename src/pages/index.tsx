@@ -1,5 +1,5 @@
 //@ts-nocheck
-import {ReactComponent,Provide,Inject} from "@/lib/defineComponent.tsx";
+import {ReactComponent,Provide,Inject} from "@/lib/defineComponent";
 import css from '@/components/css.module.scss'
 
 class Test1 extends ReactComponent{
