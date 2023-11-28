@@ -1,4 +1,4 @@
-import {defineComponent,ReactComponent,Provide} from "../lib/defineComponent";
+import {defineComponent,ReactComponent,Provide} from "@/lib/defineComponent";
 import { Outlet } from "react-router-dom";
 import Test2 from "@/components/test2.tsx";
 

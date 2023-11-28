@@ -1,4 +1,4 @@
-import {defineComponent,ReactComponent,Inject} from "../lib/defineComponent";
+import {defineComponent,ReactComponent,Inject} from "@/lib/defineComponent";
 
 
 class Test2 extends ReactComponent{
