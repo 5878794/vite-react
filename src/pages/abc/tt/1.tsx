@@ -1,5 +1,5 @@
 
-import {ReactComponent} from "../../lib/defineComponent";
+import {ReactComponent} from "@/lib/defineComponent";
 
 class Page extends ReactComponent{
     constructor(props:any) {
