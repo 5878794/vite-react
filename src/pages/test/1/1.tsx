@@ -7,7 +7,7 @@ class Page extends ReactComponent{
     }
 
     render(){
-        return <div>111</div>
+        return <div>222</div>
     }
 }
 
