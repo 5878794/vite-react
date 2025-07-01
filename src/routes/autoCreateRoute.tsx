@@ -52,7 +52,6 @@ const getPathDist = (path:string) => {
 }
 
 const createRoute = (dist:any) => {
-  console.log(dist)
   const route:any = [];
   const fn = (obj:any,route:any,root?:boolean) => {
     for(let [key,val] of Object.entries(obj)){

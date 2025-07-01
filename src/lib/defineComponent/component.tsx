@@ -4,6 +4,8 @@
 import React, {createContext} from "react";
 
 class ReactComponent extends React.Component<any, any> {
+    watchCatchProp:any = {};
+    watchCatchState:any = {};
 
     constructor(props: any) {
         super(props);
@@ -24,13 +26,6 @@ class ReactComponent extends React.Component<any, any> {
         this.props.navigate(path)
     }
 
-    watchProp() {
-        return {}
-    }
-
-    watchState() {
-        return {}
-    }
 
     componentDidMount() {
         this.ready();
@@ -40,69 +35,34 @@ class ReactComponent extends React.Component<any, any> {
         this.destroy();
     }
 
-    componentDidUpdate(prop: any, state: any) {
-        this.update(prop, state);
+    //注册prop的监听函数
+    //使用   this.watchProp('prop_key',(oldVal:any,newVal:any)=>{....} )
+    watchProp(key:string,fn:any){
+        this.watchCatchProp[key] = fn;
+    }
 
-        //检查prop是否有变化
-        const watchProp: any = this.watchProp();
-        for (let [key, val] of Object.entries(watchProp)) {
-            if (prop[key] !== this.props[key] && typeof val === 'function') {
-                (val as any)(this.props[key], prop[key])
+    //注册state的监听函数
+    //使用   this.watchState('state_key',(oldVal:any,newVal:any)=>{....} )
+    watchState(key:string,fn:any){
+        this.watchCatchState[key] = fn;
+    }
+
+    componentDidUpdate(perProps:any,perState:any){
+        for(let [key,val] of Object.entries(perProps)){
+            if(perProps[key] !== this.props[key] && this.watchCatchProp[key]){
+                //判断之前的值和现在的值是否相等  且注册咯监听的
+                //监听函数返回老的值和新的值
+                this.watchCatchProp[key](perProps[key],this.props[key]);
             }
         }
 
-        //检查state是否有变化
-        const watchState: any = this.watchState();
-        for (let [key, val] of Object.entries(watchState)) {
-            if (state[key] !== this.state[key] && typeof val === 'function') {
-                (val as any)(this.state[key], state[key])
+        for(let [key,val] of Object.entries(perState)){
+            if(perState[key] !== this.state[key] && this.watchCatchState[key]){
+                //判断之前的值和现在的值是否相等  且注册咯监听的
+                //监听函数返回老的值和新的值
+                this.watchCatchState[key](perState[key],this.state[key]);
             }
         }
-
-        return null;
-    }
-
-    //需要类初始化的时候设置
-    ref(val: any) {
-        const symbolKey = Symbol();
-        const _this = this;
-
-        (this.state as any)[symbolKey] = val;
-
-        return new Proxy({}, {
-            get(target: any, key: any, receiver: any) {
-                return (_this.state as any)[symbolKey];
-            },
-            set(target: any, key: any, val: any, receiver: any) {
-                const obj: any = {};
-                obj[symbolKey] = val;
-                _this.setState(obj)
-                return true;
-            }
-        })
-    }
-
-    //需要类初始化的时候设置  不能设置数组
-    reactive(val: any) {
-        const symbolKey = Symbol();
-        const _this = this;
-
-        (this.state as any)[symbolKey] = val;
-
-        return new Proxy({}, {
-            get(target: any, key: any, receiver: any) {
-                return (_this.state as any)[symbolKey][key];
-            },
-            set(target: any, key: any, val: any, receiver: any) {
-                const obj: any = {};
-                obj[symbolKey] = (_this.state as any)[symbolKey];
-                obj[symbolKey][key] = val;
-
-                _this.setState(obj)
-                return true;
-            }
-        })
-
     }
 
     render(...rest:any):any{
