@@ -19,6 +19,11 @@ class ReactComponent extends React.Component<any, any> {
     update(preProp: any, preState: any) {
     }
 
+    //页面跳转 需要继承的类输出 withNavigation(react class)
+    pageTo(path:string){
+        this.props.navigate(path)
+    }
+
     watchProp() {
         return {}
     }

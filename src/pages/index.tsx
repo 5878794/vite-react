@@ -68,7 +68,7 @@ class Page extends ReactComponent{
     pageChange(){
         // this.test1111();
         // console.log(this.props)
-        this.props.navigate('/abc/1')
+        this.pageTo('/abc/tt/1')
         // const navigate = useNavigate();
         // navigate('/abc/1');
     }
