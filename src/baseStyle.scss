@@ -1,5 +1,168 @@
-@charset "utf-8";
-/* CSS Document */
+//width
+@for $i from 0 through 750{
+    @if $i % 2 == 0 {
+        .w#{$i}{
+            width:$i+px !important;
+        }
+    }
+}
+@for $i from 0 through 100{
+    @if $i % 5 == 0 {
+        .w_#{$i}{
+            width:$i*1% !important;
+        }
+    }
+}
+
+//height
+@for $i from 0 through 500{
+    @if $i % 2 == 0 {
+        .h#{$i}{
+            height:$i+px !important;
+        }
+    }
+}
+@for $i from 0 through 100{
+    @if $i % 5 == 0 {
+        .h_#{$i}{
+            height:$i*1% !important;
+        }
+    }
+}
+
+//padding、margin
+@for $i from 0 through 100{
+    @if $i % 2 == 0 {
+        .p#{$i}{
+            padding:$i+px;
+            box-sizing: border-box;
+        }
+        .pt#{$i}{
+            padding-top:$i+px;
+            box-sizing: border-box;
+        }
+        .pb#{$i}{
+            padding-bottom:$i+px;
+            box-sizing: border-box;
+        }
+        .pr#{$i}{
+            padding-right:$i+px;
+            box-sizing: border-box;
+        }
+        .pl#{$i}{
+            padding-left:$i+px;
+            box-sizing: border-box;
+        }
+        .m#{$i}{
+            margin:$i+px;
+        }
+        .mt#{$i}{
+            margin-top:$i+px;
+        }
+        .mb#{$i}{
+            margin-bottom:$i+px;
+        }
+        .mr#{$i}{
+            margin-right:$i+px;
+        }
+        .ml#{$i}{
+            margin-left:$i+px;
+        }
+    }
+}
+
+//font-size
+@for $i from 9 through 128{
+    .fs#{$i}{
+        font-size:$i+px;
+    }
+}
+
+//font-weight
+.fw{
+    font-weight: bold;
+}
+//@for $i from 1 through 9{
+//    .fw#{$i}{
+//        font-weight: $i*100;
+//    }
+//}
+
+
+//图片元素设置背景
+.bg{
+    position: absolute; z-index: -1;
+}
+
+
+
+
+
+.br10{border-radius: 10px;}
+.br20{border-radius: 20px;}
+.br160{border-radius: 160px;}
+
+.bC{border: 1px solid #ccc;}
+.btC{border-top: 1px solid #ccc;}
+.bbC{border-bottom: 1px solid #ccc;}
+.blC{border-left: 1px solid #ccc;}
+.brC{border-right: 1px solid #ccc;}
+.b3{border: 1px solid #333;}
+.bt3{border-top: 1px solid #333;}
+.bb3{border-bottom: 1px solid #333;}
+.bl3{border-left: 1px solid #333;}
+.br3{border-right: 1px solid #333;}
+
+.btd{border-style: dashed}
+
+.bgE{background-color:#eee;}
+.bgC{background-color:#ccc;}
+.bgA{background-color:#aaa;}
+.bgF{background-color:#fff;}
+.bg3{background-color:#000;}
+.bgRed{background-color:#FF5249;}
+.bgBlue{background-color: #165DFF;}
+.bgYellow{background-color: #F7AA14;}
+.bgGreen{background-color: #00B42A;}
+.bgGold{background-color: #FBD9AE;}
+.bgInput{background-color: #F4F4F4;}
+
+
+.fcF{color:#fff;}
+.fc3{color:#333;}
+.fc6{color:#666;}
+.fc9{color:#999;}
+.fcB{color:#B2B2B2;}
+.fcRed{color:#FF5249;}
+.fcBlue{color:#165DFF;}
+.fcGold{color:#FBD9AE;}
+
+.ofA{overflow: visible;}
+.ofH{overflow: hidden;}
+
+.o1{opacity: .1;}
+.o2{opacity: .2;}
+.o3{opacity: .3;}
+.o4{opacity: .4;}
+.o5{opacity: .5;}
+.o6{opacity: .6;}
+.o7{opacity: .7;}
+.o8{opacity: .8;}
+.o9{opacity: .9;}
+.o10{opacity: 1;}
+
+
+.pR{position: relative;}
+.pA{position: absolute;}
+.pF{position: fixed;}
+.l0{left:0;};
+.t0{top:0;};
+.r0{right:0;};
+.b0{bottom:0;};
+
+.z1000{z-index: 1000}
+
+
 
 *{
     margin:0;
@@ -725,3 +888,4 @@ https://cssloaders.github.io/
         transform: rotate(360deg);
     }
 }
+

@@ -14,7 +14,7 @@ class abc extends ReactComponent{
 
     render(){
         return <div className='w100 h100 box_hlt'>
-            <div className='w_300 h100' style={{background: 'red', width: '300px'}}>
+            <div className='w300 h100 bgRed'>
                 <div onClick={() => this.pageChange(1)}>111</div>
                 <div onClick={() => this.pageChange(2)}>222</div>
             </div>
