@@ -18,9 +18,25 @@ class myTable extends ReactComponent{
     }
 
     //setting的参数
-        // {label:'列1',type:'text',key:'a'},
-        // {label:'列2',type:'custom',render:(rowData:any)=>{
-        //     return <a>{rowData.b}</a>
+        //参数说明   key:绑定的行数据的key
+        //参数说明   label:表头显示的文字
+        //参数说明   sort:数字列的排序
+        //参数说明   customSort:自定义排序 (a,b)=>a.a-b.a   //a、b为行的数据
+        //参数说明   format: type=date时显示时间格式化的参数   默认 YYYY-MM-DD   完整格式 YYYY-MM-DD hh:mm:ss
+        //参数说明   type:显示类型
+            // text：文本
+            // date:时间戳显示成日期
+            // custom:自定义渲染组件 执行render函数渲染
+
+
+
+        // {label:'列1',type:'text',key:'a',sort:true},      //sort排序
+        // {label:'列444',type:'text',key:'aa',customSort:(a:any,b:any)=>{       //customSort 自定义排序a、b为行数据
+        //     return (a.aa??0)-(b.aa??0)
+        // }},
+        // {label:'列1',type:'date',key:'b',format:'YYYY-MM-DD hh:mm:ss'},   //type:date  时间戳显示成文字
+        // {label:'列2',type:'custom',render:(rowData:any)=>{                //render 自定义渲染
+        //     return <a>{rowData.c}</a>
         // }},
     static defaultProps = {
         setting:[],
@@ -56,7 +72,8 @@ class myTable extends ReactComponent{
                         dataIndex: rs.key,
                         key: 'col_'+i,
                         render:(data:any)=>{
-                            return device.formatDate(data,'YYYY-MM-DD hh:mm:ss')
+                            const fmt = rs.format? rs.format : 'YYYY-MM-DD';
+                            return device.formatDate(data,fmt)
                         }
                     }
                     break;
@@ -76,6 +93,20 @@ class myTable extends ReactComponent{
                         key: 'col_'+i,
                     }
             }
+
+            //判断是否有排序
+            if(rs.sort){
+                thisObj.sorter = (a:any,b:any) => {
+                    return (a[rs.key]??0) - (b[rs.key]??0)
+                }
+            }
+
+            //判断是否有自定义排序
+            if(rs.customSort){
+                thisObj.sorter = rs.customSort;
+            }
+
+
 
             newSetting.push(thisObj);
         })
