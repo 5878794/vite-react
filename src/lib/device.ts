@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import {formatDate} from "@/lib/dateTime.ts";
 
 export default {
     publicSrc:import.meta.env.VITE_BASE_URL,
@@ -9,4 +10,5 @@ export default {
     isObj:(val:any)=>{return _.isPlainObject(val)},
     cloneJson:(json:any)=>{return _.cloneDeep(json);},
     isFunction:(val:any)=>{return _.isFunction(val)},
+    formatDate:formatDate
 }

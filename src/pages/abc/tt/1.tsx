@@ -10,13 +10,14 @@ class Page extends ReactComponent{
         this.state = {
             setting:[
                 {label:'列1',type:'text',key:'a'},
+                {label:'列1',type:'date',key:'b',format:'YYYY-MM-DD'},
                 {label:'列2',type:'custom',render:(rowData:any)=>{
-                    return <a>{rowData.b}</a>
+                    return <a>{rowData.c}</a>
                 }},
             ],
             data:[  //最好带id字段，应为每行数据要有自己的key，否则会自动生成 row_i 的key
-                {id:1,a:1,b:2,c:3},
-                {id:2,a:1,b:2,c:3},
+                {id:1,a:1,b:new Date().getTime(),c:3},
+                {id:2,a:1,b:Math.floor(new Date().getTime()/1000),c:3},
                 {id:3,a:1,b:2,c:3},
                 {id:4,a:1,b:2,c:3},
                 {id:5,a:1,b:2,c:3},
@@ -33,14 +34,16 @@ class Page extends ReactComponent{
                 <Table
                     setting={this.state.setting}
                     data={this.state.data}
+
+                    //设置每行前面的选择
                     selected={[1,2,4]}
                     onSelect={(rs:any)=>{
                         console.log(rs)
                     }}
-                    selectType=''
-
+                    selectType='checkbox'
                 />
             </div>
+
         </div>
     }
 }

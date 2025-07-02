@@ -50,10 +50,19 @@ class myTable extends ReactComponent{
                         key: 'col_'+i,
                     }
                     break;
-                case 'custom':
+                case 'date':
                     thisObj = {
                         title: rs.label,
                         dataIndex: rs.key,
+                        key: 'col_'+i,
+                        render:(data:any)=>{
+                            return device.formatDate(data,'YYYY-MM-DD hh:mm:ss')
+                        }
+                    }
+                    break;
+                case 'custom':
+                    thisObj = {
+                        title: rs.label,
                         key: 'col_'+i,
                         render:(rowData:any)=>{
                             return rs.render(rowData)
@@ -106,6 +115,7 @@ class myTable extends ReactComponent{
             dataSource={this.state.dataSource}
             columns={this.state.columns}
             rowSelection={rowSelection}
+            pagination={false}
         />
     }
 
