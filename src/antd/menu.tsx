@@ -9,11 +9,9 @@ import {withNavigation} from "@/lib/defineComponent";
 
 
 class newMenu extends ReactComponent{
-    props:any;
     distCatch:any={};
     constructor(props:any) {
         super(props);
-        this.props = props;
         this.state = {
             collapsed:device.isBool(props.min)? props.min : false,
             menuData:props.data

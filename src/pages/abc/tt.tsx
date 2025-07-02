@@ -55,11 +55,11 @@ class abc extends ReactComponent{
     }
 
     render(){
-        return <div className='w100 h100 box_hlt'>
-            <div className='w300 h100 bgRed'>
+        return <div className='w_100 h_100 box_hlt'>
+            <div className='w300 h_100 bgRed'>
                 <Menu data={this.state.items}/>
             </div>
-            <div style={{width:'300px',height:'100vh'}}>
+            <div className='boxflex1 h_100'>
                 <Outlet />
             </div>
         </div>

@@ -6,9 +6,11 @@ import React, {createContext} from "react";
 class ReactComponent extends React.Component<any, any> {
     watchCatchProp:any = {};
     watchCatchState:any = {};
+    props:any;
 
     constructor(props: any) {
         super(props);
+        this.props = props;
         this.state = {};
     }
 

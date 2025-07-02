@@ -1,13 +1,47 @@
 
 import {ReactComponent} from "@/lib/defineComponent";
+import Table from '@/antd/table.tsx'
+
+
 
 class Page extends ReactComponent{
     constructor(props:any) {
         super(props);
+        this.state = {
+            setting:[
+                {label:'列1',type:'text',key:'a'},
+                {label:'列2',type:'custom',render:(rowData:any)=>{
+                    return <a>{rowData.b}</a>
+                }},
+            ],
+            data:[  //最好带id字段，应为每行数据要有自己的key，否则会自动生成 row_i 的key
+                {id:1,a:1,b:2,c:3},
+                {id:2,a:1,b:2,c:3},
+                {id:3,a:1,b:2,c:3},
+                {id:4,a:1,b:2,c:3},
+                {id:5,a:1,b:2,c:3},
+                {id:6,a:1,b:2,c:3},{id:8,a:1,b:2,c:3},
+                {id:7,a:1,b:2,c:3},
+            ]
+        }
     }
 
     render(){
-        return <div>abc</div>
+        return <div className='box_slt h_100'>
+            <div>11111</div>
+            <div className='boxflex1 w_100'>
+                <Table
+                    setting={this.state.setting}
+                    data={this.state.data}
+                    selected={[1,2,4]}
+                    onSelect={(rs:any)=>{
+                        console.log(rs)
+                    }}
+                    selectType=''
+
+                />
+            </div>
+        </div>
     }
 }
 
