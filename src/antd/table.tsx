@@ -4,6 +4,7 @@ import {ReactComponent,withNavigation} from "@/lib/defineComponent";
 import {Table} from "antd";
 import device from "@/lib/device.ts";
 
+//TODO 滚动 合计 输入控件 表格合并 样式控制
 
 class myTable extends ReactComponent{
     constructor(props:any) {
