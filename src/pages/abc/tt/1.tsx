@@ -10,7 +10,7 @@ class Page extends ReactComponent{
         this.state = {
             setting:[
                 {label:'列1',type:'text',key:'a',sort:true,width:100,fixed: 'left'},
-                {label:'列444',width:2000,type:'text',key:'aa',customSort:(a:any,b:any)=>{
+                {label:'列444',width:2000,type:'text',align:'center',key:'aa',customSort:(a:any,b:any)=>{
                     return (a.aa??0)-(b.aa??0)
                 }},
                 {label:'列1',width:150,type:'date',key:'b',format:'YYYY-MM-DD'},

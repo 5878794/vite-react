@@ -1,7 +1,7 @@
 
 
 import {ReactComponent,withNavigation} from "@/lib/defineComponent";
-import {Table} from "antd";
+import {Table,Tooltip} from "antd";
 import device from "@/lib/device.ts";
 import React from 'react'
 
@@ -29,6 +29,7 @@ class myTable extends ReactComponent{
         //参数说明   customSort:自定义排序 (a,b)=>a.a-b.a   //a、b为行的数据
         //参数说明   format: type=date时显示时间格式化的参数   默认 YYYY-MM-DD   完整格式 YYYY-MM-DD hh:mm:ss
         //参数说明   width:列的宽度  单位px
+        //参数说明   align:列的对齐方式 left | right | center   默认：left
         //参数说明   fixed:滚动时固定不动  left | right
         //参数说明   type:显示类型
             // text：文本
@@ -94,6 +95,12 @@ class myTable extends ReactComponent{
                         title: rs.label,
                         dataIndex: rs.key,
                         key: 'col_'+i,
+                        render:(data:any)=> {
+                            // return <Tooltip placement="topLeft" title={data}>
+                            //     <div className="diandian" style={{width: rs.width + 'px'}}>{data}</div>
+                            // </Tooltip>
+                            return <div className="diandian" style={{width: rs.width + 'px'}}>{data}</div>
+                        }
                     }
                     break;
                 case 'date':
@@ -142,6 +149,10 @@ class myTable extends ReactComponent{
 
             if(rs.fixed){
                 thisObj.fixed = rs.fixed
+            }
+
+            if(rs.align){
+                thisObj.align = rs.align
             }
 
 
