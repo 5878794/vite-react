@@ -5,7 +5,7 @@ import {Table,Tooltip} from "antd";
 import device from "@/lib/device.ts";
 import React from 'react'
 
-//TODO 输入控件 表格合并 样式控制
+//TODO 输入控件
 
 class myTable extends ReactComponent{
     tableRef = React.createRef(); // 创建一个 ref
@@ -31,6 +31,11 @@ class myTable extends ReactComponent{
         //参数说明   width:列的宽度  单位px
         //参数说明   align:列的对齐方式 left | right | center   默认：left
         //参数说明   fixed:滚动时固定不动  left | right
+        //参数说明   onCell:单元格合并
+                    //合并行：  该列的第2行合并第三行
+                    //onCell:(rowData,rowNumber)=>{ return rowNumber==1? {rowSpan:2} : rowNumber==2? {rowSpan:0} : {rowSpan:1} }
+                    //合并列： 该列的第2行合并下一列的第2行   并且下一列也要设置onCell 且值为 return rowNumber == 1 ? {colSpan:0} : {colSpan:1}
+                    //onCell:(rowData,rowNumber)=>{ return rowNumber == 1 ? {colSpan:2} : {colSpan:1} }
         //参数说明   type:显示类型
             // text：文本
             // date:时间戳显示成日期
@@ -157,6 +162,9 @@ class myTable extends ReactComponent{
                 thisObj.align = rs.align
             }
 
+            if(rs.onCell){
+                thisObj.onCell = rs.onCell
+            }
 
             newSetting.push(thisObj);
         })

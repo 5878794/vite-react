@@ -9,10 +9,18 @@ class Page extends ReactComponent{
         super(props);
         this.state = {
             setting:[
-                {label:'列1',type:'text',key:'a',sort:true,width:100,fixed: 'left'},
-                {label:'列444',width:2000,type:'text',align:'center',key:'aa',customSort:(a:any,b:any)=>{
-                    return (a.aa??0)-(b.aa??0)
+                {label:'列1',type:'text',key:'a',sort:true,width:100,fixed: 'left',onCell:(rowData:any,index:any)=>{
+                    return index==1? {rowSpan:2} : index==2? {rowSpan:0} : {rowSpan:1}
+                        // return index == 1 ? {colSpan:2} : {colSpan:1}
                 }},
+                {label:'列444',width:200,type:'text',align:'left',key:'aa',customSort:(a:any,b:any)=>{
+                    return (a.aa??0)-(b.aa??0)
+                },onCell:(rowData:any,index:any)=>{
+                        console.log(rowData,index)
+                        // return index == 1 ? {colSpan:0} : {colSpan:1}
+                        // return index%2==0? {rowSpan:2} : {rowSpan:0};
+                        // return index%2==0? {colSpan:2} : {colSpan:0};
+                    }},
                 {label:'列1',width:150,type:'date',key:'b',format:'YYYY-MM-DD'},
                 {label:'列2',type:'custom',width:100,fixed:'right',render:(rowData:any)=>{
                     return <a>{rowData.c}</a>
