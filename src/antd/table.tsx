@@ -54,7 +54,9 @@ class myTable extends ReactComponent{
         selectType:null,     //  null  | checkbox | radio  如果为null下面2个参数无效
         onSelect:null,  //  null  |  (selectedRowkeys)=>{...}
         selected:[],     //当前选中的行的key
-        totalKeys:[]    //需要合计的字段key  第一列默认写成合计，如果要统计第一列setting中要加一个空列
+
+        totalKeys:[],    //需要合计的字段key  第一列默认写成合计，如果要统计第一列setting中要加一个空列
+        loading:false,  //是否加载中
     }
 
     ready(){
@@ -235,6 +237,7 @@ class myTable extends ReactComponent{
             // bordered
             // size="small"
             summary={(data:any)=>{return this.renderTotal(data)}}
+            loading={this.props.loading}
             scroll={{
                 x:'max-content',
                 y:this.state.scrollYMaxHeight+'px'

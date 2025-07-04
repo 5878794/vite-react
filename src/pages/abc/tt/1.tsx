@@ -26,8 +26,15 @@ class Page extends ReactComponent{
                 {id:5,a:22,aa:6,b:2,c:3},
                 {id:6,a:34,aa:4,b:2,c:3},{id:8,a:1,b:2,c:3},
                 {id:7,a:3,aa:22,b:2,c:3},
-            ]
+            ],
+            loading:true
         }
+    }
+
+    ready(){
+        setTimeout(()=>{
+            this.setState({loading:false})
+        },2000)
     }
 
     render(){
@@ -45,6 +52,8 @@ class Page extends ReactComponent{
                     }}
                     // selectType='checkbox'
                     totalKeys={['aa']}
+
+                    loading={this.state.loading}
                 />
             </div>
 
