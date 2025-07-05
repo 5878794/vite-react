@@ -24,7 +24,7 @@ class Test2 extends ReactComponent{
     constructor(props:any) {
         super(props);
         this.state = {
-            height:200
+            height:'200'
         }
     }
 
@@ -37,7 +37,7 @@ class Test2 extends ReactComponent{
     async onSubmit(){
         return new Promise((resolve,reject)=>{
             setTimeout(()=>{
-                reject('aaa')
+                resolve('aaa')
             },2000)
         })
     }
@@ -47,8 +47,12 @@ class Test2 extends ReactComponent{
             this.setState({
                 height:400
             })
+        },1000)
+        setTimeout(()=>{
             this.props.openWinHideLoading();
-        },2000)
+        },3000)
+
+
     }
 
     render(){
@@ -114,7 +118,8 @@ class Page extends ReactComponent{
         await device.confirm('打开弹窗？');
         const data = await device.openWin(Test2,{aaa:222222,bbb:33333},{
             title:'托尔斯泰',
-            width:400
+            width:1000,
+            needOpenLoading:true
         });
         console.log(data)
     }

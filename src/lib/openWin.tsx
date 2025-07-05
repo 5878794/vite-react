@@ -3,7 +3,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import {ReactComponent} from "@/lib/defineComponent";
 import {CloseOutlined,LoadingOutlined} from '@ant-design/icons'
-import {Modal,Button} from 'antd';
+import {Modal,Button,Skeleton} from 'antd';
 import device from "@/lib/device.ts";
 import mdfCss from '@/antd/mdf.module.scss'
 
@@ -145,7 +145,17 @@ class winComponent extends ReactComponent{
             </div>
 
             <div className='pl20 pr20 pt10 __body__ small_scroll pR'>
-                {this.state.isLoading && <div className='w_100 h_100 box_hcc pA l0 t0'><LoadingOutlined className='fs32'/></div>}
+                {/*{this.state.isLoading && <div className='w_100 h_100 box_hcc pA l0 t0'><LoadingOutlined className='fs32'/></div>}*/}
+                {this.state.isLoading && <div className='w_100 h_100 box_slt p20 pA l0 t0 ofH'>
+                    <Skeleton className='mb50' active />
+                    <Skeleton className='mb50' active />
+                    <Skeleton className='mb50' active />
+                    <Skeleton className='mb50' active />
+                    <Skeleton className='mb50' active />
+                    <Skeleton className='mb50' active />
+                    <Skeleton className='mb50' active />
+                    <Skeleton className='mb50' active />
+                </div>}
                 <div style={{visibility:this.state.isLoading? 'hidden' : 'visible'}}>{this.renderCom()}</div>
 
             </div>
