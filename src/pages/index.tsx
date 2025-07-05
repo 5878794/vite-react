@@ -20,10 +20,46 @@ class Test1 extends ReactComponent{
     }
 }
 
+class Test2 extends ReactComponent{
+    constructor(props:any) {
+        super(props);
+        this.state = {
+            height:200
+        }
+    }
+
+    static defaultProps=  {
+        aaa:1,
+        bbb:2,
+        openWinHideLoading:()=>{}
+    }
+
+    async onSubmit(){
+        return new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                reject('aaa')
+            },2000)
+        })
+    }
+
+    ready(){
+        setTimeout(()=>{
+            this.setState({
+                height:400
+            })
+            this.props.openWinHideLoading();
+        },2000)
+    }
+
+    render(){
+        return <div style={{height:this.state.height+'px'}}>
+            {this.props.aaa}-{this.props.bbb}
+        </div>
+    }
+}
+
 
 class Page extends ReactComponent{
-
-
 
     // test:any;
     // test1:any;
@@ -73,23 +109,15 @@ class Page extends ReactComponent{
         // navigate('/abc/1');
     }
 
-    // @Provide('aaa','provide')
-    // @Provide('bbb','abc')
-    // render(){
-    //     return <div className={`${css.bg} box_hlt`}>
-    //             <div className='box_slt' style={{width:'300px'}}>
-    //                 {this.state.abc}
-    //                 <br/><br/><br/><br/><br/>
-    //                 <Link to='/abc/1'>{this.test.value1}-1123</Link>
-    //                 <br/>
-    //                 {this.test1.aaa}
-    //                 <img src={`${device.publicSrc}/vite.svg`} />
-    //             </div>
-    //             <div className='boxflex1'>
-    //                 <Test1/>
-    //             </div>
-    //         </div>
-    // }
+
+    async openWin(){
+        await device.confirm('打开弹窗？');
+        const data = await device.openWin(Test2,{aaa:222222,bbb:33333},{
+            title:'托尔斯泰',
+            width:400
+        });
+        console.log(data)
+    }
 
     @Provide('aaa','test')
     @Provide('bbb','test4')
@@ -101,6 +129,7 @@ class Page extends ReactComponent{
                 return <div key={rs}>{rs}</div>
             })}
             <div>--------------</div>
+            <div onClick={()=>this.openWin()}>open win</div>
             <Test1/>
         </div>
     }
