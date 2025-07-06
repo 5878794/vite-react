@@ -4,6 +4,8 @@ import css from '@/components/css.module.scss'
 import device from "@/lib/device.ts";
 import { useNavigate,Link } from 'react-router-dom';
 
+import Form from '@/antd/form/index.tsx'
+
 class Test1 extends ReactComponent{
 
     constructor(props:any) {
@@ -70,26 +72,47 @@ class Page extends ReactComponent{
     constructor(props:any) {
         super(props);
         this.state = {
-            test2:[]
+            setting:[
+                {label:'group',type:'group',key:'g1',style:{width:'100%'},children:[
+                    {label:'我的名字1',type:'text',key:'text1',rule:'require',style:{width:'100%'},afterInputRender:()=><div style={{paddingLeft:'5px'}}>asdf</div>},
+                    {label:'我的名字2',type:'text',key:'text2',style:{width:'100%'},}
+                ]},
+                {label:'group',type:'group',key:'g2',style:{width:'100%'},children:[
+                    {label:'我的名字3',type:'text',key:'text3',style:{width:'100%'},},
+                    {label:'text4',type:'text',key:'text4',style:{width:'100%'},}
+                ]}
+            ],
+            serverData:{
+                g1:{
+                    text1:1,
+                    text2:2,
+                },
+                g2:{
+                    text3:3,
+                    text4:4,
+                },
+
+
+            }
         }
     }
 
     ready(){
-        this.setState({
-            test:123,
-            test4:333,
-            test1:{},
-            test2:[1,2,3]
-        })
-
-        setInterval(()=>{
-            const temp = this.state.test2;
-            temp[1] = new Date().getTime()+'abc'
-            this.setState({
-                test:new Date().getTime(),
-                test2:temp
-            })
-        },1000)
+        // this.setState({
+        //     test:123,
+        //     test4:333,
+        //     test1:{},
+        //     test2:[1,2,3]
+        // })
+        //
+        // setInterval(()=>{
+        //     const temp = this.state.test2;
+        //     temp[1] = new Date().getTime()+'abc'
+        //     this.setState({
+        //         test:new Date().getTime(),
+        //         test2:temp
+        //     })
+        // },1000)
 
 
 
@@ -105,38 +128,40 @@ class Page extends ReactComponent{
         // },1000)
     }
 
-    pageChange(){
-        // this.test1111();
-        // console.log(this.props)
-        this.pageTo('/abc/tt/1')
-        // const navigate = useNavigate();
-        // navigate('/abc/1');
-    }
+    // pageChange(){
+    //     // this.test1111();
+    //     // console.log(this.props)
+    //     this.pageTo('/abc/tt/1')
+    //     // const navigate = useNavigate();
+    //     // navigate('/abc/1');
+    // }
 
 
-    async openWin(){
-        await device.confirm('打开弹窗？');
-        const data = await device.openWin(Test2,{aaa:222222,bbb:33333},{
-            title:'托尔斯泰',
-            width:1000,
-            needOpenLoading:true
-        });
-        console.log(data)
-    }
+    // async openWin(){
+    //     await device.confirm('打开弹窗？');
+    //     const data = await device.openWin(Test2,{aaa:222222,bbb:33333},{
+    //         title:'托尔斯泰',
+    //         width:1000,
+    //         needOpenLoading:true
+    //     });
+    //     console.log(data)
+    // }
 
-    @Provide('aaa','test')
-    @Provide('bbb','test4')
+    // @Provide('aaa','test')
+    // @Provide('bbb','test4')
     render(){
-        return <div>
-            <div onClick={()=>{this.pageChange()}}>{this.state.test}</div>
-            <div>{this.state.test4}</div>
-            {this.state.test2.map((rs:any)=>{
-                return <div key={rs}>{rs}</div>
-            })}
-            <div>--------------</div>
-            <div onClick={()=>this.openWin()}>open win</div>
-            <Test1/>
-        </div>
+        // return <div>
+        //     <div onClick={()=>{this.pageChange()}}>{this.state.test}</div>
+        //     <div>{this.state.test4}</div>
+        //     {this.state.test2.map((rs:any)=>{
+        //         return <div key={rs}>{rs}</div>
+        //     })}
+        //     <div>--------------</div>
+        //     <div onClick={()=>this.openWin()}>open win</div>
+        //     <Test1/>
+        // </div>
+
+        return <Form setting={this.state.setting} serverData={this.state.serverData}/>
     }
 }
 

@@ -1,5 +1,5 @@
 import {createContext} from 'react';
-const MyProvideData:any = {}
+const MyProvideData:any = {};       //全局的  尽量不要用
 
 const Provide = (nameSpace: string,provideKey:string) => {
     return (target: any, name: string, descriptor: any) => {
