@@ -132,15 +132,17 @@ class Page extends ReactComponent{
                                 unit:'元',
                                 style:{width:'100%'},
                                 // errMsg:'xxxxx',
-                                iconRender:()=><img className='w20 h20' src={device.publicSrc+'vite.svg'} />,
-                                afterInputRender:()=> {
-                                    return <div style={{paddingLeft: '5px'}}>asdf</div>
-                                },
+                                // iconRender:()=><img className='w20 h20' src={device.publicSrc+'vite.svg'} />,
+                                // afterInputRender:()=> {
+                                //     return <div style={{paddingLeft: '5px'}}>asdf</div>
+                                // },
 
                             },
                             {label: '我的名字2',disabled:false,
                                 rule:'require,price',
-                                type:'text',key:'text2',style:{width:'100%'},placeholder:'xxxx',iconRender:()=><img className='w20 h20' src={device.publicSrc+'vite.svg'} />,}
+                                type:'text',key:'text2',style:{width:'100%'},placeholder:'xxxx',
+                                // iconRender:()=><img className='w20 h20' src={device.publicSrc+'vite.svg'} />,
+                            }
                         ]},
                     {label:'group',type:'group',key:'g2',style:{width:'100%'},children:[
                             {label:'我的名字3',type:'text',key:'text3',style:{width:'100%'}},
