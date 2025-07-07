@@ -3,6 +3,7 @@
 import {ReactComponent} from "@/lib/defineComponent";
 import Group from './group.tsx'
 import device from "@/lib/device.ts";
+import React from "react";
 
 import Text from "./input/text.tsx";
 
@@ -17,16 +18,20 @@ const InputComponent = {
 //     {
 //     label:'group',
 //     type:'group',
-//     key:'g1',
+//     key:'g1',        //非必须
 //     style:{width:'100%'},
 //     children:[
 //        {
 //              label:'我的名字1',
 //              type:'text',
 //              key:'text1',
-//              rule:'require',
+//              placeholder:'',
+//              rule:'require,max:@key',
 //              style:{width:'100%'},
+//              unit:'元'
+//              errMsg:'',      //验证出错时固定显示
 //              afterInputRender:()=><div style={{paddingLeft:'5px'}}>asdf</div>    //输入框后面的自定义渲染
+//              iconRender:()=><img src={} />   //输入框内前面的图标自定义渲染
 //         },
 //         ...
 //     ]},
@@ -36,14 +41,18 @@ const InputComponent = {
 
 
 class Form extends ReactComponent{
+    formRef:any = {}
+    linkCheck:any = {};     //关联验证的key关系
     constructor(props:any) {
         super(props);
+
         this.state = {
             serverData:this.props.serverData,
             setting:this.handlerSetting(),
         }
 
         this.watchProp('setting',()=>{
+            this.formRef = {}
             this.setState({
                 setting:this.handlerSetting()
             })
@@ -60,8 +69,13 @@ class Form extends ReactComponent{
         serverData:{},
         customComponent:{}, //自定义组件
         labelStyle:{width:'100px',textAlign:'right'},
+        variant:'outlined',     //输入框样式   outlined:带边框  filled:背景和边框灰色  borderless：无边框   underlined：只有下边框
         showRequire:true,    //是否显示必填的*
         labelChangeRow:false //label是否换行显示
+    }
+
+    addFormRef(key:string,ref:any){
+        this.formRef[key] = ref;
     }
 
 
@@ -73,13 +87,44 @@ class Form extends ReactComponent{
             setting.map((rs:any)=>{
                 temp_key++;
                 const nowKey = rs.key || '__temp_key__'+temp_key;
-                rs._key = key? key+','+nowKey : nowKey;
+                rs._key = key? key+'.'+nowKey : nowKey;
                 if(rs.children){
                     loopFn(rs.children,rs.key)
                 }
             })
         }
         loopFn(setting,'');
+
+        //获取需要验证的关联的key
+        const linkCheck:any = {};
+        const loopFn1 = (setting:any) => {
+            setting.map((rs:any)=>{
+                if(rs.rule && rs.rule.indexOf('@')>-1){
+                    const rules = rs.rule.split(',');
+                    rules.map((rs1:any)=>{
+                        if(rs1.indexOf('@')>-1){
+                            let key = rs1.split(':')[1];
+                            key = key.substring(1);
+                            if(!linkCheck[rs._key]){
+                                linkCheck[rs._key] = [];
+                            }
+                            if(!linkCheck[key]){
+                                linkCheck[key] = [];
+                            }
+
+                            linkCheck[rs._key].push(key)
+                            linkCheck[key].push(rs._key)
+                        }
+                    })
+                }
+                if(rs.children){
+                    loopFn1(rs.children)
+                }
+            })
+        }
+        loopFn1(setting)
+        this.linkCheck = linkCheck;
+
         return setting;
     }
 
@@ -87,7 +132,7 @@ class Form extends ReactComponent{
     updateValue(key:string,val:any){
         let serverData = device.cloneJson(this.state.serverData);
         const cache = serverData;
-        const keys = key? key.split(',') : [];
+        const keys = key? key.split('.') : [];
 
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
@@ -106,21 +151,72 @@ class Form extends ReactComponent{
         this.setState({
             serverData:cache
         })
-
-        setTimeout(()=>{
-            console.log(this.getData())
-        },1000)
     }
 
+    // form.current.find('g1.text1')
+    find(key:string){
+        return this.formRef[key];
+    }
+
+    checkAndGetData(){
+
+        return new Promise((resolve,reject)=>{
+            let pass = true;
+            for(let [key,ref] of Object.entries(this.formRef)){
+                const thisPass = (ref as any).checkInput(false);
+                if(!thisPass){
+                    pass = false
+                }
+            }
+
+            if(pass){
+                resolve(this.state.serverData)
+            }else{
+                reject('');
+            }
+        })
+    }
+
+    //有可能未验证过的数据
     getData(){
-        return this.state.serverData;
+        const obj:any= {};
+
+        const setObj = (key:string,val:any) => {
+            const keys = key? key.split('.') : [];
+            let tempObj = obj;
+
+            for (let i = 0; i < keys.length; i++) {
+                const key = keys[i];
+                if (i === keys.length - 1) {
+                    // 最后一项，赋值
+                    tempObj[key] = val;
+                } else {
+                    // 如果中间的对象不存在，就创建
+                    if (!tempObj[key]) {
+                        tempObj[key] = {};
+                    }
+                    tempObj = tempObj[key];
+                }
+            }
+        }
+
+        for(let [key,ref] of Object.entries(this.formRef)){
+            const val = (ref as any).showVal2Val((ref as any).state.showVal);
+            setObj(key,val)
+        }
+
+        return obj;
     }
+
 
     render(){
         return <Group
+            addFormRef={(key:string,ref:any)=>{this.addFormRef(key,ref)}}
+            getFormRef={()=>{return this}}
             setting={this.state.setting}
             serverData={this.state.serverData}
             labelStyle={this.props.labelStyle}
+            variant={this.props.variant}
             showRequire={this.props.showRequire}
             customComponent={this.props.customComponent}
             inputComponent={InputComponent}

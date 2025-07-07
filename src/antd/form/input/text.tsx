@@ -3,6 +3,7 @@
 import base from "./base.tsx";
 import {Input} from "antd";
 
+
 class Text extends base{
     constructor(props:any) {
         super(props);
@@ -10,11 +11,25 @@ class Text extends base{
 
     static defaultProps = {
         ...base.defaultProps,
-
+        placeholder:base.defaultProps.placeholder || '请输入',
+        iconRender:()=>null,
+        unit:''
     }
 
     renderInput(){
-        return <Input className='w_100 h_100' placeholder="Basic usage" size='large' />
+        return <Input
+            {...this.getInputProps()}
+            className='w_100 h_100'
+            variant={this.props.variant}
+            defaultValue={this.state.showVal}
+            prefix={this.props.iconRender()}
+            size='large'
+            addonAfter={this.props.unit}
+            status={this.state.errMsg == ''? '' : 'error'}
+            onChange={(e:any)=>{
+                this.updateVal(e.target.value)
+            }}
+        />
     }
 }
 

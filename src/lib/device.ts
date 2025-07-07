@@ -62,5 +62,21 @@ export default {
             });
         })
 
-    }
+    },
+    /**
+     * @description 获取字符串真实长度  中文算2个字符
+     * @param val string
+     * */
+    getStringLength:(val:any)=>{
+        if(!val){return 0}
+        let len = 0;
+        for (let i = 0; i < val.length; i++) {
+            const length = val.charCodeAt(i);
+            if (length >= 0 && length <= 128) {
+                len += 1;
+            } else {
+                len += 2;
+            }
+        }
+        return len;}
 }

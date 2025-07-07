@@ -3,6 +3,7 @@ import {ReactComponent,Provide,Inject,withNavigation} from "@/lib/defineComponen
 import css from '@/components/css.module.scss'
 import device from "@/lib/device.ts";
 import { useNavigate,Link } from 'react-router-dom';
+import React from "react";
 
 import Form from '@/antd/form/index.tsx'
 
@@ -66,31 +67,22 @@ class Test2 extends ReactComponent{
 
 
 class Page extends ReactComponent{
-
+    formRef:any = React.createRef(null)
     // test:any;
     // test1:any;
     constructor(props:any) {
         super(props);
         this.state = {
-            setting:[
-                {label:'group',type:'group',key:'g1',style:{width:'100%'},children:[
-                    {label:'我的名字1',type:'text',key:'text1',rule:'require',style:{width:'100%'},afterInputRender:()=><div style={{paddingLeft:'5px'}}>asdf</div>},
-                    {label:'我的名字2',type:'text',key:'text2',style:{width:'100%'},}
-                ]},
-                {label:'group',type:'group',key:'g2',style:{width:'100%'},children:[
-                    {label:'我的名字3',type:'text',key:'text3',style:{width:'100%'},},
-                    {label:'text4',type:'text',key:'text4',style:{width:'100%'},}
-                ]}
-            ],
+            setting:[],
             serverData:{
-                g1:{
-                    text1:1,
-                    text2:2,
-                },
-                g2:{
-                    text3:3,
-                    text4:4,
-                },
+                // g1:{
+                //     text1:1,
+                //     text2:2,
+                // },
+                // g2:{
+                //     text3:3,
+                //     text4:4,
+                // },
 
 
             }
@@ -126,6 +118,37 @@ class Page extends ReactComponent{
         //     })
         //     console.log(123)
         // },1000)
+
+
+        setTimeout(()=>{
+            this.setState({
+                setting:[
+                    {label:'group',type:'group',style:{width:'100%'},children:[
+                            {
+                                label:'我的名字1',
+                                type:'text',
+                                key:'text1',
+                                rule:'require,min:@text2',
+                                unit:'元',
+                                style:{width:'100%'},
+                                // errMsg:'xxxxx',
+                                iconRender:()=><img className='w20 h20' src={device.publicSrc+'vite.svg'} />,
+                                afterInputRender:()=> {
+                                    return <div style={{paddingLeft: '5px'}}>asdf</div>
+                                },
+
+                            },
+                            {label: '我的名字2',disabled:false,
+                                rule:'require,price',
+                                type:'text',key:'text2',style:{width:'100%'},placeholder:'xxxx',iconRender:()=><img className='w20 h20' src={device.publicSrc+'vite.svg'} />,}
+                        ]},
+                    {label:'group',type:'group',key:'g2',style:{width:'100%'},children:[
+                            {label:'我的名字3',type:'text',key:'text3',style:{width:'100%'}},
+                            {label:'text4',type:'text',key:'text4',style:{width:'100%'},}
+                        ]}
+                ]
+            })
+        },2000)
     }
 
     // pageChange(){
@@ -147,6 +170,19 @@ class Page extends ReactComponent{
     //     console.log(data)
     // }
 
+    async getData(){
+        const a = this.formRef.current.find('g2.text4')
+        console.log(a)
+
+        const data = this.formRef.current.getData();
+        console.log(data)
+
+        const data1 = await this.formRef.current.checkAndGetData();
+        console.log(data1)
+
+
+    }
+
     // @Provide('aaa','test')
     // @Provide('bbb','test4')
     render(){
@@ -161,7 +197,10 @@ class Page extends ReactComponent{
         //     <Test1/>
         // </div>
 
-        return <Form setting={this.state.setting} serverData={this.state.serverData}/>
+        return <>
+            <Form ref={this.formRef} setting={this.state.setting} serverData={this.state.serverData}/>
+            <div onClick={()=>{this.getData()}}>getDate</div>
+        </>
     }
 }
 

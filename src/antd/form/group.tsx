@@ -1,7 +1,7 @@
 
 
 import {ReactComponent} from "@/lib/defineComponent";
-
+import React from "react";
 
 
 
@@ -16,10 +16,13 @@ class Group extends ReactComponent{
         serverData:{},
         customComponent:{},
         labelStyle:{},
+        variant:'',
         showRequire:true,
         inputComponent:{},
         updateValue:()=>{},
-        labelChangeRow:false
+        labelChangeRow:false,
+        addFormRef:()=>{},
+        getFormRef:()=>{}
     }
 
     renderItem(setting:any){
@@ -27,9 +30,12 @@ class Group extends ReactComponent{
             const serverData = setting.key? this.props.serverData[setting.key] : this.props.serverData;
             return <div key={setting._key} className='group'>
                 <Group
+                    addFormRef={this.props.addFormRef}
+                    getFormRef={this.props.getFormRef}
                     setting={setting.children}
                     serverData={serverData}
                     labelStyle={this.props.labelStyle}
+                    variant={this.props.variant}
                     showRequire={this.props.showRequire}
                     customComponent={this.props.customComponent}
                     inputComponent={this.props.inputComponent}
@@ -49,14 +55,18 @@ class Group extends ReactComponent{
                 return null;
             }
 
-
+            this.props.addFormRef(setting._key,)
             return <Tag
+                ref={(el:any)=>{this.props.addFormRef(setting._key,el)}}
+                getFormRef={this.props.getFormRef}
                 {...setting}
+                // addFormRef={this.props.addFormRef}
                 updateValue={this.props.updateValue}
                 showRequire={this.props.showRequire}
+                variant={this.props.variant}        //输入框样式
                 labelStyle={Object.assign({},this.props.labelStyle,setting.labelStyle??{})}
                 labelChangeRow={this.props.labelChangeRow}
-                defaultVal={this.props.serverData[setting.key]}
+                defaultValue={this.props.serverData[setting.key]}
             />
         }
     }
