@@ -2,6 +2,7 @@
 
 import {ReactComponent} from "@/lib/defineComponent";
 import React from "react";
+import {set} from "lodash";
 
 
 
@@ -29,6 +30,7 @@ class Group extends ReactComponent{
         if(setting.type == 'group'){
             const serverData = setting.key? this.props.serverData[setting.key] : this.props.serverData;
             return <div key={setting._key} className='group'>
+                {setting.render && setting.render()}
                 <Group
                     addFormRef={this.props.addFormRef}
                     getFormRef={this.props.getFormRef}
@@ -56,6 +58,8 @@ class Group extends ReactComponent{
             }
 
             this.props.addFormRef(setting._key,)
+
+            const defaultVal = setting.dataType == 'array'? [] : setting.dataType == 'obj'? {} : '';
             return <Tag
                 ref={(el:any)=>{this.props.addFormRef(setting._key,el)}}
                 getFormRef={this.props.getFormRef}
@@ -66,7 +70,7 @@ class Group extends ReactComponent{
                 variant={this.props.variant}        //输入框样式
                 labelStyle={Object.assign({},this.props.labelStyle,setting.labelStyle??{})}
                 labelChangeRow={this.props.labelChangeRow}
-                defaultValue={this.props.serverData[setting.key]}
+                defaultValue={this.props.serverData[setting.key]??defaultVal}
             />
         }
     }

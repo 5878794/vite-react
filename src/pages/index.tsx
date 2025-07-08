@@ -4,6 +4,7 @@ import css from '@/components/css.module.scss'
 import device from "@/lib/device.ts";
 import { useNavigate,Link } from 'react-router-dom';
 import React from "react";
+import testCom from "@/antd/form/custom/testCom.tsx";
 
 import Form from '@/antd/form/index.tsx'
 
@@ -123,7 +124,7 @@ class Page extends ReactComponent{
         setTimeout(()=>{
             this.setState({
                 setting:[
-                    {label:'group',type:'group',style:{width:'100%'},children:[
+                    {type:'group',render:()=>{return <div className='w_100 h40 fw'>123</div>},children:[
                             {
                                 label:'我的名字1',
                                 type:'text',
@@ -142,7 +143,8 @@ class Page extends ReactComponent{
                                 rule:'require,price',
                                 type:'text',key:'text2',style:{width:'100%'},placeholder:'xxxx',
                                 // iconRender:()=><img className='w20 h20' src={device.publicSrc+'vite.svg'} />,
-                            }
+                            },
+                            {label:'',type:'testCom',key:'text5',dataType:''}
                         ]},
                     {label:'group',type:'group',key:'g2',style:{width:'100%'},children:[
                             {label:'我的名字3',type:'text',key:'text3',style:{width:'100%'}},
@@ -173,8 +175,8 @@ class Page extends ReactComponent{
     // }
 
     async getData(){
-        const a = this.formRef.current.find('g2.text4')
-        console.log(a)
+        // const a = this.formRef.current.find('g2.text4')
+        // console.log(a)
 
         const data = this.formRef.current.getData();
         console.log(data)
@@ -200,7 +202,7 @@ class Page extends ReactComponent{
         // </div>
 
         return <>
-            <Form ref={this.formRef} setting={this.state.setting} serverData={this.state.serverData}/>
+            <Form ref={this.formRef} setting={this.state.setting} serverData={this.state.serverData} customComponent={{testCom}}/>
             <div onClick={()=>{this.getData()}}>getDate</div>
         </>
     }

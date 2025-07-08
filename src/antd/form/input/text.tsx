@@ -19,11 +19,11 @@ class Text extends base{
     renderInput(){
         return <Input
             {...this.getInputProps()}
-            className='w_100 h_100'
+            className='w_100'
             variant={this.props.variant}
             defaultValue={this.state.showVal}
             prefix={this.props.iconRender()}
-            size='large'
+            size={this.props.inputSize}
             addonAfter={this.props.unit}
             status={this.state.errMsg == ''? '' : 'error'}
             onChange={(e:any)=>{

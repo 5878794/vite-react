@@ -22,13 +22,7 @@ class Base extends ReactComponent{
         })
 
         this.watchState('showVal',()=>{
-            if(this.checkInput(true)){
-                let val = this.showVal2Val(this.state.showVal);
-                this.setState({
-                    val:val
-                })
-                this.props.updateValue(this.props._key,val);
-            }
+            this.checkInput(true);
         })
     }
 
@@ -46,6 +40,7 @@ class Base extends ReactComponent{
         placeholder:'',
         getFormRef:()=>{},
         errMsg:'',  //验证错误固定提示文字
+        inputSize:'large',  //输入框大小
 
         defaultValue:'',    //默认值
         disabled:false, //是否禁用
@@ -86,6 +81,14 @@ class Base extends ReactComponent{
                 errMsg:rs.msg
             })
         }
+
+        //跟新数据
+        let val = this.showVal2Val(this.state.showVal);
+        this.setState({
+            val:val
+        })
+        this.props.updateValue(this.props._key,val);
+
         return rs.pass;
     }
 
@@ -120,6 +123,7 @@ class Base extends ReactComponent{
         delete props.unit
         delete props.getFormRef
         delete props.errMsg
+        delete props.inputSize
 
 
         return props;

@@ -11,16 +11,15 @@ const InputComponent = {
     text:Text
 }
 
-//TODO 加单位后输入框变高
+//TODO   tab切换   其它组件
 
 //form组件
 // setting参数
 // setting:[
 //     {
-//     label:'group',
 //     type:'group',
-//     key:'g1',        //非必须
-//     style:{width:'100%'},
+//     key:'g1',        //非必须，填写后下级key会带层级
+//     render:()=>{return <div></div>}, //非必填
 //     children:[
 //        {
 //              label:'我的名字1',
@@ -29,6 +28,7 @@ const InputComponent = {
 //              placeholder:'',
 //              rule:'require,max:@key',
 //              style:{width:'100%'},
+//              dataType:'',        //默认数据类型(一般自定义组件用)，默认:''   array时默认值为[]   obj时默认为{}
 //              unit:'元'
 //              errMsg:'',      //验证出错时固定显示
 //              afterInputRender:()=><div style={{paddingLeft:'5px'}}>asdf</div>    //输入框后面的自定义渲染
@@ -73,7 +73,7 @@ class Form extends ReactComponent{
         labelStyle:{width:'100px',textAlign:'right'},
         variant:'outlined',     //输入框样式   outlined:带边框  filled:背景和边框灰色  borderless：无边框   underlined：只有下边框
         showRequire:true,    //是否显示必填的*
-        labelChangeRow:false //label是否换行显示
+        labelChangeRow:false, //label是否换行显示
     }
 
     addFormRef(key:string,ref:any){
@@ -165,9 +165,11 @@ class Form extends ReactComponent{
         return new Promise((resolve,reject)=>{
             let pass = true;
             for(let [key,ref] of Object.entries(this.formRef)){
-                const thisPass = (ref as any).checkInput(false);
-                if(!thisPass){
-                    pass = false
+                if((ref as any).checkInput){
+                    const thisPass = (ref as any).checkInput(false);
+                    if(!thisPass){
+                        pass = false
+                    }
                 }
             }
 
