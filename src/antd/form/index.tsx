@@ -31,11 +31,14 @@ const InputComponent = {
 //              when:'aa.bb==1',            //所有元素都支持when属性
 //              style:{width:'100%'},
 //              dataType:'',        //默认数据类型(一般自定义组件用)，默认:''   array时默认值为[]   obj时默认为{}
-//              unit:'元',
 //              value:'',       //默认值  会同初始serverData合并
 //              errMsg:'',      //验证出错时固定显示
 //              afterInputRender:()=><div style={{paddingLeft:'5px'}}>asdf</div>    //输入框后面的自定义渲染
+//              //TODO change
+//
+//         //text特有
 //              iconRender:()=><img src={} />   //输入框内前面的图标自定义渲染
+//              unit:'元',
 //         },
 //         ...
 //     ]},
