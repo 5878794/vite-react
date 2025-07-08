@@ -11,7 +11,7 @@ const InputComponent = {
     text:Text
 }
 
-//TODO   tab切换   其它组件
+//TODO    其它组件
 
 //form组件
 // setting参数
