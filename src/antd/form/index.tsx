@@ -20,6 +20,7 @@ const InputComponent = {
 //     type:'group',    //包裹层只能是group和tab, tab的下层必须是group，且group增加tabName属性指定tab的名称
 //     key:'g1',        //非必须，填写后下级key会带层级
 //     labelRender:()=>{return <div></div>}, //非必填
+//     style:{},
 //     children:[
 //        {
 //              label:'我的名字1',
@@ -63,7 +64,7 @@ class Form extends ReactComponent{
             })
         })
         this.watchProp('serverData',()=>{
-            // this.setDefaultDataForWhen()
+            this.setDefaultDataForWhen()
             this.setState({
                 serverData:this.props.serverData
             })
@@ -104,7 +105,7 @@ class Form extends ReactComponent{
 
     handlerSetting(){
         //计算默认值 (先赋值空)
-        // const cacheDataForWhen:any = {};
+        const cacheDataForWhen:any = {};
         //生成唯一的key
         const setting = this.props.setting;
         let temp_key = 0;
@@ -115,7 +116,7 @@ class Form extends ReactComponent{
                 rs._key = key? key+'.'+nowKey : nowKey;
 
                 if(rs.type != 'group' && rs.type != 'tab'){
-                    // cacheDataForWhen[rs._key] = (rs.value || rs.value ==0) ? rs.value : rs.dataType == 'array'? [] : rs.dataType == 'obj'? {} : '';
+                    cacheDataForWhen[rs._key] = (rs.value || rs.value ==0) ? rs.value : rs.dataType == 'array'? [] : rs.dataType == 'obj'? {} : '';
                 }
 
                 if(rs.children){
@@ -124,8 +125,8 @@ class Form extends ReactComponent{
             })
         }
         loopFn(setting,'');
-        // this.cacheDataForWhen = cacheDataForWhen;
-        // this.setDefaultDataForWhen()
+        this.cacheDataForWhen = cacheDataForWhen;
+        this.setDefaultDataForWhen()
 
         //获取需要验证的关联的key
         const linkCheck:any = {};

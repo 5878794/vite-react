@@ -2,14 +2,14 @@
 @for $i from 0 through 750{
     @if $i % 2 == 0 {
         .w#{$i}{
-            width:$i+px !important;
+            width:$i+px;
         }
     }
 }
 @for $i from 0 through 100{
     @if $i % 5 == 0 {
         .w_#{$i}{
-            width:$i*1% !important;
+            width:$i*1%;
         }
     }
 }
@@ -18,14 +18,14 @@
 @for $i from 0 through 500{
     @if $i % 2 == 0 {
         .h#{$i}{
-            height:$i+px !important;
+            height:$i+px;
         }
     }
 }
 @for $i from 0 through 100{
     @if $i % 5 == 0 {
         .h_#{$i}{
-            height:$i*1% !important;
+            height:$i*1%;
         }
     }
 }

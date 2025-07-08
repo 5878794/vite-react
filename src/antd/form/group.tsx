@@ -69,7 +69,7 @@ class Group extends ReactComponent{
 
         if(setting.type == 'group'){
             const serverData = setting.key? this.props.serverData[setting.key] : this.props.serverData;
-            return <div key={setting._key} className='group'>
+            return <div key={setting._key} className='group w_100' style={setting.style}>
                 {setting.labelRender && setting.labelRender()}
                 <Group
                     addFormRef={this.props.addFormRef}
@@ -93,7 +93,7 @@ class Group extends ReactComponent{
             const serverData = setting.key? this.props.serverData[setting.key] : this.props.serverData;
             const guid = device.guid();
 
-            return <div id={guid} className='w_100' key={setting._key+'__'}>
+            return <div id={guid} className='w_100' key={setting._key+'__'} style={setting.style}>
                 <div className='w_100 box_hcc'>
                     <Segmented
                         className='mb20'
@@ -113,14 +113,15 @@ class Group extends ReactComponent{
                     />
                 </div>
                 {setting.children.map((group:any,i:number)=>{
-                    const style = i==0? {display:'flex'} : {display: 'none'}
+                    const style = i==0? {display:'flex'} : {display: 'none'};
+                    const groupServerData = group.key? serverData[group.key] : serverData;
                     return <div key={i} className={'__tab_group_'+i+' __tab_group__'} style={style}>
                         <Group
                             key={group._key}
                             addFormRef={this.props.addFormRef}
                             getFormRef={this.props.getFormRef}
                             setting={group.children}
-                            serverData={serverData}
+                            serverData={groupServerData}
                             labelStyle={this.props.labelStyle}
                             variant={this.props.variant}
                             showRequire={this.props.showRequire}
@@ -143,7 +144,7 @@ class Group extends ReactComponent{
 
             this.props.addFormRef(setting._key,)
 
-            // const defaultVal = setting.dataType == 'array'? [] : setting.dataType == 'obj'? {} : '';
+            const defaultVal = (setting.value || setting.value == 0)? setting.value : setting.dataType == 'array'? [] : setting.dataType == 'obj'? {} : '';
             return <Tag
                 ref={(el:any)=>{this.props.addFormRef(setting._key,el)}}
                 getFormRef={this.props.getFormRef}
@@ -154,7 +155,7 @@ class Group extends ReactComponent{
                 variant={this.props.variant}        //输入框样式
                 labelStyle={Object.assign({},this.props.labelStyle,setting.labelStyle??{})}
                 labelChangeRow={this.props.labelChangeRow}
-                defaultValue={this.props.serverData[setting.key]}
+                defaultValue={this.props.serverData[setting.key]??defaultVal}
             />
         }
     }

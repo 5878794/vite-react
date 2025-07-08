@@ -77,11 +77,11 @@ class Page extends ReactComponent{
             setting:[],
             serverData:{
                 a1:{
-                    text1:'111'
+                    // text1:'111'
                 },
-                // g2:{
-                //     text4:'0'
-                // }
+                g2:{
+                    // text4:'4'
+                }
                 // g1:{
                 //     text1:1,
                 //     text2:2,
@@ -130,7 +130,7 @@ class Page extends ReactComponent{
         setTimeout(()=>{
             this.setState({
                 setting:[
-                    {type:'tab',label:'tab1',render:()=>{return <div className='w_100 h40 fw'>123</div>},children:[
+                    {type:'tab',style:{width:'50%'},children:[
                         {type:'group',key:'a1',tabName:'tab1',children:[
                             {
                                 label:'我的名字1',
@@ -138,7 +138,7 @@ class Page extends ReactComponent{
                                 key:'text1',
                                 rule:'require,min:@a2.text2',
                                 unit:'元',
-                                style:{width:'100%'},
+                                style:{width:'50%'},
                                 value:'2',
                                 // errMsg:'xxxxx',
                                 // iconRender:()=><img className='w20 h20' src={device.publicSrc+'vite.svg'} />,
