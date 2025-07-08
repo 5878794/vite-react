@@ -77,7 +77,7 @@ class Page extends ReactComponent{
             setting:[],
             serverData:{
                 a1:{
-                    // text1:'111'
+                    text1:'111'
                 },
                 g2:{
                     // text4:'4'
@@ -130,7 +130,7 @@ class Page extends ReactComponent{
         setTimeout(()=>{
             this.setState({
                 setting:[
-                    {type:'tab',style:{width:'50%'},children:[
+                    {type:'group',style:{width:'50%'},children:[
                         {type:'group',key:'a1',tabName:'tab1',children:[
                             {
                                 label:'我的名字1',

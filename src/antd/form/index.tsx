@@ -100,7 +100,6 @@ class Form extends ReactComponent{
             }
         }
         loopFn(this.props.serverData,'')
-        console.log(this.cacheDataForWhen)
     }
 
     handlerSetting(){

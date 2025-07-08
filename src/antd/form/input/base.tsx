@@ -24,7 +24,6 @@ class Base extends ReactComponent{
         this.watchState('showVal',()=>{
             this.checkInput(true);
         })
-        console.log(props._key,props.defaultValue)
     }
 
     static defaultProps = {
