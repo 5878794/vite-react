@@ -17,9 +17,9 @@ const InputComponent = {
 // setting参数
 // setting:[
 //     {
-//     type:'group',
+//     type:'group',    //包裹层只能是group和tab, tab的下层必须是group，且group增加tabName属性指定tab的名称
 //     key:'g1',        //非必须，填写后下级key会带层级
-//     render:()=>{return <div></div>}, //非必填
+//     labelRender:()=>{return <div></div>}, //非必填
 //     children:[
 //        {
 //              label:'我的名字1',
@@ -27,9 +27,11 @@ const InputComponent = {
 //              key:'text1',
 //              placeholder:'',
 //              rule:'require,max:@key',
+//              when:'aa.bb==1',            //所有元素都支持when属性
 //              style:{width:'100%'},
 //              dataType:'',        //默认数据类型(一般自定义组件用)，默认:''   array时默认值为[]   obj时默认为{}
-//              unit:'元'
+//              unit:'元',
+//              value:'',       //默认值  会同初始serverData合并
 //              errMsg:'',      //验证出错时固定显示
 //              afterInputRender:()=><div style={{paddingLeft:'5px'}}>asdf</div>    //输入框后面的自定义渲染
 //              iconRender:()=><img src={} />   //输入框内前面的图标自定义渲染
@@ -45,6 +47,7 @@ const InputComponent = {
 class Form extends ReactComponent{
     formRef:any = {}
     linkCheck:any = {};     //关联验证的key关系
+    cacheDataForWhen:any = {};  //为when缓存的serverData
     constructor(props:any) {
         super(props);
 
@@ -60,6 +63,7 @@ class Form extends ReactComponent{
             })
         })
         this.watchProp('serverData',()=>{
+            // this.setDefaultDataForWhen()
             this.setState({
                 serverData:this.props.serverData
             })
@@ -80,9 +84,28 @@ class Form extends ReactComponent{
         this.formRef[key] = ref;
     }
 
+    //给when的cache设置默认值
+    setDefaultDataForWhen(){
+        const loopFn = (data:any,inKey:string) => {
+            for(let [key,val] of Object.entries(data)){
+                const nowKey = inKey? inKey+'.'+key : key;
+                if(this.cacheDataForWhen[nowKey]){
+                    this.cacheDataForWhen[nowKey] = val;
+                }
 
-    //生成唯一的key
+                if(device.isObj(val)){
+                    loopFn(val,nowKey)
+                }
+            }
+        }
+        loopFn(this.props.serverData,'')
+        console.log(this.cacheDataForWhen)
+    }
+
     handlerSetting(){
+        //计算默认值 (先赋值空)
+        // const cacheDataForWhen:any = {};
+        //生成唯一的key
         const setting = this.props.setting;
         let temp_key = 0;
         const loopFn = (setting:any,key:string) => {
@@ -90,12 +113,19 @@ class Form extends ReactComponent{
                 temp_key++;
                 const nowKey = rs.key || '__temp_key__'+temp_key;
                 rs._key = key? key+'.'+nowKey : nowKey;
+
+                if(rs.type != 'group' && rs.type != 'tab'){
+                    // cacheDataForWhen[rs._key] = (rs.value || rs.value ==0) ? rs.value : rs.dataType == 'array'? [] : rs.dataType == 'obj'? {} : '';
+                }
+
                 if(rs.children){
                     loopFn(rs.children,rs.key)
                 }
             })
         }
         loopFn(setting,'');
+        // this.cacheDataForWhen = cacheDataForWhen;
+        // this.setDefaultDataForWhen()
 
         //获取需要验证的关联的key
         const linkCheck:any = {};
@@ -150,6 +180,7 @@ class Form extends ReactComponent{
             }
         }
 
+        this.cacheDataForWhen[key] = val;
         this.setState({
             serverData:cache
         })
@@ -165,7 +196,7 @@ class Form extends ReactComponent{
         return new Promise((resolve,reject)=>{
             let pass = true;
             for(let [key,ref] of Object.entries(this.formRef)){
-                if((ref as any).checkInput){
+                if(ref && (ref as any).checkInput){
                     const thisPass = (ref as any).checkInput(false);
                     if(!thisPass){
                         pass = false
@@ -174,7 +205,7 @@ class Form extends ReactComponent{
             }
 
             if(pass){
-                resolve(this.state.serverData)
+                resolve(this.getData())
             }else{
                 reject('');
             }
@@ -205,8 +236,10 @@ class Form extends ReactComponent{
         }
 
         for(let [key,ref] of Object.entries(this.formRef)){
-            const val = (ref as any).showVal2Val((ref as any).state.showVal);
-            setObj(key,val)
+            if((ref as any)){
+                const val = (ref as any).showVal2Val((ref as any).state.showVal);
+                setObj(key,val)
+            }
         }
 
         return obj;

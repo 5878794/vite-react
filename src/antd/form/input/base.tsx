@@ -124,6 +124,8 @@ class Base extends ReactComponent{
         delete props.getFormRef
         delete props.errMsg
         delete props.inputSize
+        delete props.when
+        delete props.value
 
 
         return props;

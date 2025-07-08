@@ -16,7 +16,7 @@ class TestCom extends base{
 
     //完全改写  只改写输入框部分可以改写 renderInput
     render(){
-        return <input type='text' className='w_100 h40 bC' value={this.props.defaultValue} onInput={(e:any)=>{
+        return <input type='text' className='w_100 h40 bC' value={this.state.showVal} onInput={(e:any)=>{
             this.updateVal(e.target.value)
         }}/>
     }

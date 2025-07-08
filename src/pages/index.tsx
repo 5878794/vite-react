@@ -76,6 +76,12 @@ class Page extends ReactComponent{
         this.state = {
             setting:[],
             serverData:{
+                a1:{
+                    text1:'111'
+                },
+                // g2:{
+                //     text4:'0'
+                // }
                 // g1:{
                 //     text1:1,
                 //     text2:2,
@@ -124,14 +130,16 @@ class Page extends ReactComponent{
         setTimeout(()=>{
             this.setState({
                 setting:[
-                    {type:'group',render:()=>{return <div className='w_100 h40 fw'>123</div>},children:[
+                    {type:'tab',label:'tab1',render:()=>{return <div className='w_100 h40 fw'>123</div>},children:[
+                        {type:'group',key:'a1',tabName:'tab1',children:[
                             {
                                 label:'我的名字1',
                                 type:'text',
                                 key:'text1',
-                                rule:'require,min:@text2',
+                                rule:'require,min:@a2.text2',
                                 unit:'元',
                                 style:{width:'100%'},
+                                value:'2',
                                 // errMsg:'xxxxx',
                                 // iconRender:()=><img className='w20 h20' src={device.publicSrc+'vite.svg'} />,
                                 // afterInputRender:()=> {
@@ -139,17 +147,22 @@ class Page extends ReactComponent{
                                 // },
 
                             },
+                        ]},
+                        {type:'group',key:'a2',tabName:'tab2',children:[
                             {label: '我的名字2',disabled:false,
                                 rule:'require,price',
                                 type:'text',key:'text2',style:{width:'100%'},placeholder:'xxxx',
                                 // iconRender:()=><img className='w20 h20' src={device.publicSrc+'vite.svg'} />,
                             },
-                            {label:'',type:'testCom',key:'text5',dataType:''}
-                        ]},
-                    {label:'group',type:'group',key:'g2',style:{width:'100%'},children:[
-                            {label:'我的名字3',type:'text',key:'text3',style:{width:'100%'}},
-                            {label:'text4',type:'text',key:'text4',style:{width:'100%'},}
+                            {label:'',type:'testCom',key:'text5'}
                         ]}
+
+
+                    ]},
+                    {label:'group',type:'group',key:'g2',style:{width:'100%'},children:[
+                        {label:'我的名字3',when:'g2.text4>1',type:'text',key:'text3',style:{width:'100%'}},
+                        {label:'text4',type:'text',value:'2',key:'text4',style:{width:'100%'},}
+                    ]}
                 ]
             })
         },2000)
