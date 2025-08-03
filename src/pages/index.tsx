@@ -160,7 +160,7 @@ class Page extends ReactComponent{
 
                     ]},
                     {label:'group',type:'group',key:'g2',style:{width:'100%'},children:[
-                        {label:'我的名字3',when:'g2.text4>1',type:'text',key:'text3',style:{width:'100%'}},
+                        {label:'我的名字3',when:'g2.text4==1',type:'text',key:'text3',style:{width:'100%'}},
                         {label:'text4',type:'text',value:'2',key:'text4',style:{width:'100%'},}
                     ]}
                 ]
