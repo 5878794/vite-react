@@ -157,6 +157,8 @@ class Page extends ReactComponent{
                                 style:{width:'50%'},
                                 multiple:true,
                                 value:'jack,lucy',
+                                iconRender:()=><img className='w20 h20' src={device.publicSrc+'vite.svg'} />,
+                                afterInputRender:()=>{return 'aaaa'},
                                 options:()=>{
                                     return new Promise((resolve,reject)=>{
                                         setTimeout(()=>{
@@ -248,6 +250,7 @@ class Page extends ReactComponent{
         // </div>
 
         return <>
+            <div>1111</div>
             <Form ref={this.formRef} setting={this.state.setting} serverData={this.state.serverData} customComponent={{testCom}}/>
             <div onClick={()=>{this.getData()}}>getDate</div>
         </>

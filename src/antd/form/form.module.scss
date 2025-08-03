@@ -2,6 +2,14 @@
 
 .base{
     :global{
+        //输入框前面icon居中
+        .ant-select-prefix{
+            overflow: hidden;
+            display: flex;
+            flex-direction:row;
+            align-items:center;
+            justify-content:center;
+        }
         //设置多选时 输入框不换行
         .ant-select{
             .ant-select-selection-overflow{

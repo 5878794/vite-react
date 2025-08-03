@@ -8,8 +8,6 @@ const setting = [
             {
                 //所有类型都有的。。。。。。。。。。。。。。。。。。。。
                 label:'我的名字1',
-                //输入框类型
-                type:'text',
                 //key
                 key:'text1',
                 //验证规则
@@ -29,14 +27,17 @@ const setting = [
                     console.log(111)
                     console.log(input,form)
                 },
-
-                //text特有。。。。。。。。。。。。。。。。。。。。。。。。
                 //输入框内的图标
                 iconRender:()=><img className='w20 h20' src={device.publicSrc+'vite.svg'} />,
                 //输入框后面的文字介绍
                 afterInputRender:()=> {
                     return <div style={{paddingLeft: '5px'}}>asdf</div>
                 },
+
+
+                //text特有。。。。。。。。。。。。。。。。。。。。。。。。
+                //输入框类型
+                type:'text',
                 //单位
                 unit:'元',
 

@@ -108,6 +108,7 @@ class MySelect extends base{
             mode={this.props.multiple? 'multiple': ''}
             allowClear  //显示清空按钮（效果不好看）
             showSearch
+            prefix={this.props.iconRender()}
             loading={this.state.loading}
             defaultValue={this.state.showVal}
             className='w_100'
