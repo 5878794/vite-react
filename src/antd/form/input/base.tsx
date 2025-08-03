@@ -41,6 +41,7 @@ class Base extends ReactComponent{
         getFormRef:()=>{},
         errMsg:'',  //验证错误固定提示文字
         inputSize:'large',  //输入框大小
+        iconRender:()=>null,
 
         defaultValue:'',    //默认值
         disabled:false, //是否禁用
@@ -94,7 +95,6 @@ class Base extends ReactComponent{
 
 
         if(this.props.changeFn && linkCheck){
-            console.log(this.props._key)
             this.props.changeFn(val,this,form);
         }
 

@@ -12,7 +12,6 @@ class Text extends base{
     static defaultProps = {
         ...base.defaultProps,
         placeholder:base.defaultProps.placeholder || '请输入',
-        iconRender:()=>null,
         unit:''
     }
 

@@ -7,10 +7,12 @@ import React from "react";
 
 import Text from "./input/text.tsx";
 import Select from './input/select.tsx'
+import Cascader from "@/antd/form/input/cascader.tsx";
 
 const InputComponent = {
     text:Text,
-    select:Select
+    select:Select,
+    cascader:Cascader
 }
 
 //TODO    其它组件

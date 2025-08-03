@@ -17,7 +17,14 @@ class MySelect extends base{
         };
 
         this.watchProp('options',()=>{
-            this.createOption(this.props.options)
+            this.createOption(this.props.options);
+        })
+        this.watchState('options',()=>{
+            const data = this.val2ShowVal();
+            this.setState({
+                showVal:data
+            })
+            console.log(this.props._key,this.state.showVal)
         })
     }
 
@@ -70,6 +77,10 @@ class MySelect extends base{
     }
 
     val2ShowVal(){
+        if(!this.state.options || this.state.options.length == 0){
+            return this.props.multiple? [] : undefined;
+        }
+
         if(this.props.multiple){
             return this.props.defaultValue == ''? undefined : this.props.defaultValue.split(',');
         }else{
@@ -110,7 +121,7 @@ class MySelect extends base{
             showSearch
             prefix={this.props.iconRender()}
             loading={this.state.loading}
-            defaultValue={this.state.showVal}
+            value={this.state.showVal}
             className='w_100'
             notFoundContent={<div>{this.state.emptyText}</div>}
             variant={this.props.variant}

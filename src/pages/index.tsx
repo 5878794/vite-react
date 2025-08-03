@@ -133,12 +133,12 @@ class Page extends ReactComponent{
                     {type:'group',style:{width:'50%'},children:[
                         {type:'group',key:'a1',tabName:'tab1',children:[
                             {
-                                label:'我的名字1',
+                                label:'文本',
                                 type:'text',
                                 key:'text1',
                                 rule:'require,min:@a2.text2',
                                 unit:'元',
-                                style:{width:'50%'},
+                                style:{width:'100%'},
                                 value:'2',
                                 // errMsg:'xxxxx',
                                 // iconRender:()=><img className='w20 h20' src={device.publicSrc+'vite.svg'} />,
@@ -150,13 +150,13 @@ class Page extends ReactComponent{
                                 }
                             },
                             {
-                                label:'我的名字1',
+                                label:'下拉',
                                 type:'select',
                                 key:'text6',
                                 rule:'require',
-                                style:{width:'50%'},
+                                style:{width:'100%'},
                                 multiple:true,
-                                value:'jack,lucy',
+                                value:'fff',
                                 iconRender:()=><img className='w20 h20' src={device.publicSrc+'vite.svg'} />,
                                 afterInputRender:()=>{return 'aaaa'},
                                 options:()=>{
@@ -165,22 +165,80 @@ class Page extends ReactComponent{
                                             resolve([
                                                 { value: 'jack', label: 'Jack' },
                                                 { value: 'lucy', label: 'Lucy' },
-                                                { value: 'Yiminghe阿斯顿法师打发斯蒂芬阿斯顿发斯蒂芬阿斯顿法师打发是的法师打发', label: 'Yiminghe阿斯顿法师打发斯蒂芬阿斯顿发斯蒂芬阿斯顿法师打发是的法师打发' },
+                                                { value: 'fff', label: 'Yiminghe阿斯顿法师打发斯蒂芬阿斯顿发斯蒂芬阿斯顿法师打发是的法师打发' },
                                                 { value: 'disabled', label: 'Disabled', disabled: true },
                                             ])
                                         },3000)
                                     })
                                 },
-                                optionRender:(opt:any)=>{
-                                    return <div className='box_hlc'><img className='w20 h20' src={device.publicSrc+'vite.svg'}/>{opt.label+'aaaaaaa'}</div>
-                                },
+                                // optionRender:(opt:any)=>{
+                                //     return <div className='box_hlc'><img className='w20 h20' src={device.publicSrc+'vite.svg'}/>{opt.label+'aaaaaaa'}</div>
+                                // },
                                 // renderFn:(input:any,form:any)=>{
                                 //     console.log(111)
                                 //     console.log(input,form)
                                 // },
-                                changeFn:(val:any,obj:any,form:any)=>{
-                                    console.log(val,obj,form)
-                                }
+                                // changeFn:(val:any,obj:any,form:any)=>{
+                                //     console.log(val,obj,form)
+                                // }
+                            },
+                            {
+                                label:'级联',
+                                type:'cascader',
+                                key:'text7',
+                                rule:'require',
+                                style:{width:'100%'},
+                                multiple:false,
+                                value:'nanjing',
+                                // iconRender:()=><img className='w20 h20' src={device.publicSrc+'vite.svg'} />,
+                                options:()=>{
+                                    return new Promise((resolve,reject)=>{
+                                        setTimeout(()=>{
+                                            resolve([
+                                                {
+                                                    value: 'zhejiang',
+                                                    label: 'Zhejiang',
+                                                    children: [
+                                                        {
+                                                            value: 'hangzhou',
+                                                            label: 'Hanzhou',
+                                                            children: [
+                                                                {
+                                                                    value: 'xihu',
+                                                                    label: 'West Lake',
+                                                                },
+                                                                {
+                                                                    value: 'xihu1',
+                                                                    label: 'West Lake1',
+                                                                },
+                                                            ],
+                                                        },
+                                                    ],
+                                                },
+                                                {
+                                                    value: 'jiangsu',
+                                                    label: 'Jiangsu',
+                                                    children: [
+                                                        {
+                                                            value: 'nanjing',
+                                                            label: 'Nanjing',
+                                                        },
+                                                    ],
+                                                },
+                                            ])
+                                        },3000)
+                                    })
+                                },
+                                // optionRender:(opt:any)=>{
+                                //     return <div className='box_hlc'><img className='w20 h20' src={device.publicSrc+'vite.svg'}/>{opt.label+'aaaaaaa'}</div>
+                                // },
+                                // renderFn:(input:any,form:any)=>{
+                                //     console.log(111)
+                                //     console.log(input,form)
+                                // },
+                                // changeFn:(val:any,obj:any,form:any)=>{
+                                //     console.log(val,obj,form)
+                                // }
                             }
                         ]},
                         {type:'group',key:'a2',tabName:'tab2',children:[

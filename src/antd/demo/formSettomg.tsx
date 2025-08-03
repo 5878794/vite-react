@@ -43,11 +43,11 @@ const setting = [
 
             },
             {
-                //select特有。。。。。。。。。。。。。。。。。。。。。。。。
+                //select、cascader 特有。。。。。。。。。。。。。。。。。。。。。。。。
                 //输入框类型
-                type:'select',
+                type:'select',  //或 cascader
                 multiple:true,
-                options:()=>{       //可以直接数组
+                options:()=>{       //可以直接数组  //cascader 数据多一层children
                     return new Promise((resolve,reject)=>{
                         setTimeout(()=>{
                             resolve([
