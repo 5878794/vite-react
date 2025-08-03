@@ -2,8 +2,18 @@
 
 .base{
     :global{
-        div{
-
+        //设置多选时 输入框不换行
+        .ant-select{
+            .ant-select-selection-overflow{
+                display: flex;
+                flex-direction:row;
+                align-items:center;
+                justify-content:flex-start;
+                .ant-select-selection-overflow-item:first-child{
+                    max-width: calc(100% - 75px);
+                    margin-right: 5px;
+                }
+            }
         }
     }
 }

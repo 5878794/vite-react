@@ -6,9 +6,11 @@ import device from "@/lib/device.ts";
 import React from "react";
 
 import Text from "./input/text.tsx";
+import Select from './input/select.tsx'
 
 const InputComponent = {
-    text:Text
+    text:Text,
+    select:Select
 }
 
 //TODO    其它组件

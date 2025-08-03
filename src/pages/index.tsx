@@ -145,8 +145,41 @@ class Page extends ReactComponent{
                                 // afterInputRender:()=> {
                                 //     return <div style={{paddingLeft: '5px'}}>asdf</div>
                                 // },
-
+                                changeFn:(val:any,obj:any,form:any)=>{
+                                    console.log(val,obj,form)
+                                }
                             },
+                            {
+                                label:'我的名字1',
+                                type:'select',
+                                key:'text6',
+                                rule:'require',
+                                style:{width:'50%'},
+                                multiple:true,
+                                value:'jack,lucy',
+                                options:()=>{
+                                    return new Promise((resolve,reject)=>{
+                                        setTimeout(()=>{
+                                            resolve([
+                                                { value: 'jack', label: 'Jack' },
+                                                { value: 'lucy', label: 'Lucy' },
+                                                { value: 'Yiminghe阿斯顿法师打发斯蒂芬阿斯顿发斯蒂芬阿斯顿法师打发是的法师打发', label: 'Yiminghe阿斯顿法师打发斯蒂芬阿斯顿发斯蒂芬阿斯顿法师打发是的法师打发' },
+                                                { value: 'disabled', label: 'Disabled', disabled: true },
+                                            ])
+                                        },3000)
+                                    })
+                                },
+                                optionRender:(opt:any)=>{
+                                    return <div className='box_hlc'><img className='w20 h20' src={device.publicSrc+'vite.svg'}/>{opt.label+'aaaaaaa'}</div>
+                                },
+                                // renderFn:(input:any,form:any)=>{
+                                //     console.log(111)
+                                //     console.log(input,form)
+                                // },
+                                changeFn:(val:any,obj:any,form:any)=>{
+                                    console.log(val,obj,form)
+                                }
+                            }
                         ]},
                         {type:'group',key:'a2',tabName:'tab2',children:[
                             {label: '我的名字2',disabled:false,
@@ -160,7 +193,7 @@ class Page extends ReactComponent{
 
                     ]},
                     {label:'group',type:'group',key:'g2',style:{width:'100%'},children:[
-                        {label:'我的名字3',when:'g2.text4==1',type:'text',key:'text3',style:{width:'100%'}},
+                        {label:'我的名字3',when:'g2.text4==2',type:'text',key:'text3',style:{width:'100%'}},
                         {label:'text4',type:'text',value:'2',key:'text4',style:{width:'100%'},}
                     ]}
                 ]

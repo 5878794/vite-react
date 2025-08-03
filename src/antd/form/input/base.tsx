@@ -34,7 +34,7 @@ class Base extends ReactComponent{
         labelChangeRow:false,   //label是否换行
         labelStyle:{},
         showRequire:true,   //是否显示必填*
-        variant:'',         //输入框样式
+        variant:'outlined',         //输入框样式     outlined | borderless | filled | underlined
         updateValue:(_key:string,val:any)=>{}, //更新value的函数
         afterInputRender:()=>null,  //输入框后面的说明文字
         placeholder:'',
@@ -44,6 +44,9 @@ class Base extends ReactComponent{
 
         defaultValue:'',    //默认值
         disabled:false, //是否禁用
+
+        renderFn:null,   //(obj:any,form:any)=>{}   渲染时执行
+        changeFn:null,   //(val:any,obj:any,form:any)=>{}  值变化的时候
     }
 
 
@@ -89,6 +92,12 @@ class Base extends ReactComponent{
         })
         this.props.updateValue(this.props._key,val);
 
+
+        if(this.props.changeFn && linkCheck){
+            console.log(this.props._key)
+            this.props.changeFn(val,this,form);
+        }
+
         return rs.pass;
     }
 
@@ -126,6 +135,8 @@ class Base extends ReactComponent{
         delete props.inputSize
         delete props.when
         delete props.value
+        delete props.renderFn
+        delete props.changeFn
 
 
         return props;
@@ -142,6 +153,12 @@ class Base extends ReactComponent{
 
         //判断是否必填
         const isRequire = this.props.rule.indexOf('require') > -1;
+
+        if(this.props.renderFn){
+            const form = this.getFormRef();
+            this.props.renderFn(this,form);
+        }
+
 
         return <div className={`${css.base} ${bodyClass}`} style={this.props.style}>
             {/*渲染label*/}
