@@ -1,4 +1,5 @@
 import device from '@/lib/device.ts'
+import React from "react";
 
 
 const setting = [
@@ -28,7 +29,35 @@ const setting = [
                 afterInputRender:()=> {
                     return <div style={{paddingLeft: '5px'}}>asdf</div>
                 },
+                changeFn:(val:any,obj:any,form:any)=>{
+                    console.log(val,obj,form)
+                },
+                renderFn:(input:any,form:any)=>{
+                    console.log(111)
+                    console.log(input,form)
+                },
+
             },
+                {
+                    //输入框类型  特有
+                    type:'select',
+                    multiple:true,
+                    options:()=>{       //可以直接数组
+                        return new Promise((resolve,reject)=>{
+                            setTimeout(()=>{
+                                resolve([
+                                    { value: 'jack', label: 'Jack' },
+                                    { value: 'lucy', label: 'Lucy' },
+                                    { value: 'Yiminghe阿斯顿法师打发斯蒂芬阿斯顿发斯蒂芬阿斯顿法师打发是的法师打发', label: 'Yiminghe阿斯顿法师打发斯蒂芬阿斯顿发斯蒂芬阿斯顿法师打发是的法师打发' },
+                                    { value: 'disabled', label: 'Disabled', disabled: true },
+                                ])
+                            },3000)
+                        })
+                    },
+                    optionRender:(opt:any)=>{
+                        return <div className='box_hlc'><img className='w20 h20' src={device.publicSrc+'vite.svg'}/>{opt.label+'aaaaaaa'}</div>
+                    },
+                },
         ]},
     ]},
     {label:'group',type:'group',key:'g2',style:{width:'100%'},children:[
