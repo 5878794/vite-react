@@ -251,6 +251,20 @@ class Page extends ReactComponent{
                                 value:'1754273245549',
                                 min:'1754253033000',
                                 hideHours:[20,21,22,23]
+                            },
+                            {
+                                label:'日期2',
+                                type:'dateRange',
+                                key:'text9',
+                                rule:'require',
+                                style:{width:'100%'},
+                                showTime:false,
+                                disableds:[false,false],
+                                allowEmpty:[true,true],
+                                // format:'YYYY-MM-DD HH:mm',
+                                value:'1754273245549,1754323200000',
+                                min:'1754273245549',
+                                hideHours:[20,21,22,23]
                             }
                         ]},
                         {type:'group',key:'a2',tabName:'tab2',children:[

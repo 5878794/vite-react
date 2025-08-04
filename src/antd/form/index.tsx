@@ -8,13 +8,15 @@ import React from "react";
 import Text from "@/antd/form/input/text.tsx";
 import Select from '@/antd/form/input/select.tsx'
 import Cascader from "@/antd/form/input/cascader.tsx";
-import Date from '@/antd/form/input/date.tsx'
+import Date from '@/antd/form/input/date.tsx';
+import DateRange from '@/antd/form/input/dateRange.tsx'
 
 const InputComponent = {
     text:Text,
     select:Select,
     cascader:Cascader,
-    date:Date
+    date:Date,
+    dateRange:DateRange
 }
 
 //TODO    其它组件
