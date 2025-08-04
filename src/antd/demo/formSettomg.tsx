@@ -47,6 +47,7 @@ const setting = [
                 //输入框类型
                 type:'select',  //或 cascader
                 multiple:true,
+                value:'',       //cascader最后一层的value，多选逗号隔开字符串
                 options:()=>{       //可以直接数组  //cascader 数据多一层children
                     return new Promise((resolve,reject)=>{
                         setTimeout(()=>{
@@ -63,6 +64,19 @@ const setting = [
                     return <div className='box_hlc'><img className='w20 h20' src={device.publicSrc+'vite.svg'}/>{opt.label+'aaaaaaa'}</div>
                 },
             },
+            {
+                //date 特有。。。。。。。。。。。。。。。。。。。。。。。。
+                type:'date',
+                showTime:true,
+                format:'YYYY-MM-DD HH:mm',  //显示的格式
+                value:'1754273245549',
+                picker:undefined,      //周：week 月：month  季度：quarter 年：year
+                min:'1754253033000',        //控制日期的最小、最大的显示值
+                max:'',
+                hideHours:[20,21,22,23],        //时间、分、秒 不显示的值
+                hideMinutes:[],     //0-59
+                hideSeconds:[]      //0-59
+            }
         ]},
     ]},
     {label:'group',type:'group',key:'g2',style:{width:'100%'},children:[

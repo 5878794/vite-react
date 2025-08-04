@@ -5,14 +5,16 @@ import Group from './group.tsx'
 import device from "@/lib/device.ts";
 import React from "react";
 
-import Text from "./input/text.tsx";
-import Select from './input/select.tsx'
+import Text from "@/antd/form/input/text.tsx";
+import Select from '@/antd/form/input/select.tsx'
 import Cascader from "@/antd/form/input/cascader.tsx";
+import Date from '@/antd/form/input/date.tsx'
 
 const InputComponent = {
     text:Text,
     select:Select,
-    cascader:Cascader
+    cascader:Cascader,
+    date:Date
 }
 
 //TODO    其它组件

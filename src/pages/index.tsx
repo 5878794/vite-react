@@ -239,6 +239,18 @@ class Page extends ReactComponent{
                                 // changeFn:(val:any,obj:any,form:any)=>{
                                 //     console.log(val,obj,form)
                                 // }
+                            },
+                            {
+                                label:'日期',
+                                type:'date',
+                                key:'text8',
+                                rule:'require',
+                                style:{width:'100%'},
+                                showTime:true,
+                                // format:'YYYY-MM-DD HH:mm',
+                                value:'1754273245549',
+                                min:'1754253033000',
+                                hideHours:[20,21,22,23]
                             }
                         ]},
                         {type:'group',key:'a2',tabName:'tab2',children:[
