@@ -76,6 +76,21 @@ const setting = [
                 hideHours:[20,21,22,23],        //时间、分、秒 不显示的值
                 hideMinutes:[],     //0-59
                 hideSeconds:[]      //0-59
+            },
+            {
+                //date 特有。。。。。。。。。。。。。。。。。。。。。。。。
+                type:'dateRange',
+                showTime:true,
+                format:'YYYY-MM-DD HH:mm',  //显示的格式
+                value:'1754273245549',
+                picker:undefined,      //周：week 月：month  季度：quarter 年：year
+                min:'1754253033000',        //控制日期的最小、最大的显示值
+                max:'',
+                hideHours:[20,21,22,23],        //时间、分、秒 不显示的值
+                hideMinutes:[],     //0-59
+                hideSeconds:[],      //0-59
+                disableds:[false,false],    //是否禁用
+                allowEmpty:[true,true],     //是否能为空
             }
         ]},
     ]},
